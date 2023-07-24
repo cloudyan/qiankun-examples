@@ -1,7 +1,12 @@
 import { defineConfig } from '@umijs/max';
+import routes from './config/routes'
 
 export default defineConfig({
-  antd: {},
+  antd: {
+    configProvider: {
+      prefixCls: 'master-antd',
+    }
+  },
   access: {},
   model: {},
   initialState: {},
@@ -9,27 +14,20 @@ export default defineConfig({
   layout: {
     title: '@umijs/max',
   },
-  routes: [
-    {
-      path: '/',
-      redirect: '/home',
+  lessLoader: {
+    modifyVars: {
+      '@ant-prefix': 'master-antd',
+      'primary-color': '#004FD9',
     },
-    {
-      name: '首页',
-      path: '/home',
-      component: './Home',
+    javascriptEnabled: true,
+  },
+  routes,
+  qiankun: {
+    master: {
+      prefetch: false,
     },
-    {
-      name: '权限演示',
-      path: '/access',
-      component: './Access',
-    },
-    {
-      name: ' CRUD 示例',
-      path: '/table',
-      component: './Table',
-    },
-  ],
+  },
   npmClient: 'pnpm',
+  // mfsu: false,
 });
 
