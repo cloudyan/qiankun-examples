@@ -66,9 +66,9 @@ importers:
 
   apps/slave-umi4:
     dependencies:
-      umi:
+      '@umijs/max':
         specifier: ^4.0.72
-        version: 4.0.72(@babel/core@7.22.9)(@types/react@18.0.33)(eslint@8.35.0)(postcss@8.4.27)(prettier@2.8.7)(react-dom@18.2.0)(react@18.1.0)(styled-components@6.0.5)(stylelint@14.8.2)(typescript@5.1.6)(webpack@5.88.2)
+        version: 4.0.72(@babel/core@7.22.9)(@types/react-dom@18.0.11)(@types/react@18.0.33)(dva@2.5.0-beta.2)(postcss@8.4.27)(prettier@2.8.7)(rc-field-form@1.34.2)(react-dom@18.2.0)(react@18.1.0)(styled-components@6.0.5)(typescript@5.1.6)(webpack@5.88.2)
     devDependencies:
       '@types/react':
         specifier: ^18.0.33

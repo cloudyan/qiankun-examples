@@ -49,6 +49,16 @@ export default [
   // React16
   // React15
 
+  // {
+  //   path: '/slave-xxx/*',
+  //   microApp: 'slave-xxx',
+  // },
+  // 微应用路由
+  {
+    name: 'slave-umi4',
+    path: '/slave-umi4/*',
+    microApp: 'slave-umi4',
+  },
   // 动态加载子应用
   {
     name: 'Purehtml',

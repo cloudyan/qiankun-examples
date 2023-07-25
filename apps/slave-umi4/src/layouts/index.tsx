@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'umi';
+import { Link, Outlet } from '@umijs/max';
 import styles from './index.less';
 
 export default function Layout() {
@@ -9,10 +9,10 @@ export default function Layout() {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/docs">Docs</Link>
+          <Link to="/page1">Page1</Link>
         </li>
         <li>
-          <a href="https://github.com/umijs/umi">Github</a>
+          <Link to="/page2">Page2</Link>
         </li>
       </ul>
       <Outlet />

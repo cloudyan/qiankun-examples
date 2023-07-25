@@ -25,8 +25,16 @@ export default defineConfig({
   qiankun: {
     master: {
       prefetch: false,
+      apps: [
+        {
+          name: 'slave-umi4',
+          entry: 'http://127.0.0.1:5001', // your slave app address
+        },
+      ],
     },
+    slave: {},
   },
+  base: '/',
   npmClient: 'pnpm',
   // mfsu: false,
 });

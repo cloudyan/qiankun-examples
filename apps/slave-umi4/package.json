@@ -2,14 +2,14 @@
   "name": "@example/slave-umi4",
   "author": "cloudyan <1395093509@qq.com>",
   "scripts": {
-    "dev": "umi dev",
-    "build": "umi build",
-    "postinstall": "umi setup",
-    "setup": "umi setup",
+    "dev": "max dev",
+    "build": "max build",
+    "postinstall": "max setup",
+    "setup": "max setup",
     "start": "npm run dev"
   },
   "dependencies": {
-    "umi": "^4.0.72"
+    "@umijs/max": "^4.0.72"
   },
   "devDependencies": {
     "@types/react": "^18.0.33",
