@@ -30,15 +30,15 @@ const LoadMicroApp: React.FC = () => {
       microApp.update({
         base: '/',
         replyMessage: "you're welcome",
-        message: 'hello sub-app-3, load as loadMicroApp function',
-        callback: (message: string) => callback(message, 3),
+        message: 'hello Purehtml, load as loadMicroApp function',
+        callback: (message: string) => callback(message, 9),
       });
     }
   };
 
   const callback = (message: string, type: number) => {
     Modal.success({
-      title: `来自微应用 sub-app-${type}的信息`,
+      title: `来自微应用 ${type}的信息`,
       content: message,
       okText: "reply you're welcome",
       onOk: () => handleOk(type),
@@ -49,13 +49,13 @@ const LoadMicroApp: React.FC = () => {
     if (containerRef.current) {
       microApp = loadMicroApp(
         {
-          name: 'sub-app-3',
-          entry: '//localhost:5003',
+          name: 'Purehtml',
+          entry: '//localhost:5009',
           container: containerRef.current,
           props: {
             base: '/',
-            message: 'hello sub-app-3, load as loadMicroApp function',
-            callback: (message: string) => callback(message, 3),
+            message: 'hello Purehtml, load as loadMicroApp function',
+            callback: (message: string) => callback(message, 9),
           },
         },
         {
@@ -74,7 +74,7 @@ const LoadMicroApp: React.FC = () => {
     <PageContainer ghost title={'挂载微应用'}>
       <Typography>
         <ul>
-          <li>
+          {/* <li>
             <Title level={5}>微应用(sub-app-2)</Title>
             <Text>基于umi-MicroApp组件</Text>
             <div style={{ border: 'solid 1px #cecece' }}>
@@ -86,10 +86,10 @@ const LoadMicroApp: React.FC = () => {
               />
             </div>
             <Divider />
-          </li>
+          </li> */}
           <li>
-            <Title level={5}>路由微应用(sub-app-3)</Title>
-            <Text>基于qiankun-loadMicroApp方法</Text>
+            <Title level={5}>路由微应用(Purehtml)</Title>
+            <Text>基于 qiankun loadMicroApp 方法</Text>
             <div style={{ border: 'solid 1px #cecece' }} ref={containerRef} />
           </li>
         </ul>

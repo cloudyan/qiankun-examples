@@ -43,11 +43,6 @@ export default [
     path: '/mf-host',
     component: './Home',
   },
-  {
-    name: 'Purehtml',
-    path: '/purehtml',
-    component: './Home',
-  },
   // vue2
   // vue3
   // React17
@@ -55,6 +50,11 @@ export default [
   // React15
 
   // 动态加载子应用
+  {
+    name: 'Purehtml',
+    path: '/purehtml',
+    component: './load-purehtml',
+  },
   // {
   //   name: 'react-micro-app',
   //   path: '/sub-app-2',
