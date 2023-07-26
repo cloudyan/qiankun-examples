@@ -9,17 +9,12 @@ export default defineConfig({
     // type: 'browser', // 默认
     type: 'hash',
   },
-  // <Router basename="/slave-umi4"> is not able to match the URL "/" because it does not start with the basename, so the <Router> won't render anything.
-  // 解决办法：使用 hash 路由时不配置
   // base: 'slave-umi4',
-  // base, publicPath, outputPath 默认值分别为 '/', '/', 'dist'
   hash: true,
   routes: [
-    // 默认精简配置
+    // 精简配置
     // { path: '/home', component: 'index' },
     // { path: '/page1', component: 'page1' },
-
-    // 完整配置
     {
       path: '/',
       component: '@/layouts',
@@ -29,8 +24,9 @@ export default defineConfig({
         { path: '/home', component: '@/pages/index' },
         { path: '/page1', component: '@/pages/page1' },
         { path: '/page2', component: '@/pages/page2' },
+        { path: '/*', component: '@/pages/404' },
       ],
-    }
+    },
   ],
   npmClient: 'pnpm',
 });

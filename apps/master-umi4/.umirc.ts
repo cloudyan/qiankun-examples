@@ -11,8 +11,11 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {},
+  // 默认使用 @ant-design/pro-layout，一般会自定义
+  // https://procomponents.ant.design/components/layout#prolayout
   layout: {
-    title: '@umijs/max',
+    title: 'qiankun',
+    locale: false,
   },
   lessLoader: {
     modifyVars: {
@@ -25,17 +28,13 @@ export default defineConfig({
   qiankun: {
     master: {
       prefetch: false,
-      apps: [
-        {
-          name: 'slave-umi4',
-          entry: 'http://127.0.0.1:5001', // your slave app address
-        },
-      ],
+      // 这里不写，可在 app.ts 中使用运行时注册
+      // apps: [],
     },
     slave: {},
   },
   base: '/',
   npmClient: 'pnpm',
-  // mfsu: false,
+  mfsu: false,
 });
 

@@ -1,10 +1,14 @@
 
+import { Link, Outlet } from '@umijs/max';
+
 export default function Page1() {
   return (
     <div>
       <p>页面 1</p>
       {/* 不能直接使用 location.href，会导致刷新主应用 */}
-      <button onClick={() => window.location.href = "./page2"}>Go 页面2</button>
+      <p><a href="/#/page2">Go 页面2(a 标签)</a></p>
+      <p><button onClick={() => window.location.href = '/#/page2'}>Go 页面2(location.href)</button></p>
+      <p><Link to="/page2">Go 页面2(Link)</Link></p>
     </div>
   );
 }

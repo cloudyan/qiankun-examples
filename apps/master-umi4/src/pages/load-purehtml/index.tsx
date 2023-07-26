@@ -4,7 +4,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { MicroApp } from '@umijs/max';
 import { Divider, Modal, Typography } from 'antd';
 import {
-  loadMicroApp,
+  loadMicroApp, // 手动加载子应用
   initGlobalState,
   registerMicroApps, // 注册子应用
   setDefaultMountApp, // 设置默认进入的子应用
@@ -47,9 +47,13 @@ const LoadMicroApp: React.FC = () => {
 
   useEffect(() => {
     if (containerRef.current) {
+      // 通过此形式加载的子应用，未添加到主应用中，
+      // TODO: 导致跨子应用跳转的 MicroAppLink 组件有报错提示
+      // 是否应该先注册，再加载子应用
+
       microApp = loadMicroApp(
         {
-          name: 'Purehtml',
+          name: 'purehtml',
           entry: '//localhost:5009',
           container: containerRef.current,
           props: {

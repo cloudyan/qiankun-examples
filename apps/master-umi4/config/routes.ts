@@ -53,16 +53,23 @@ export default [
   //   path: '/slave-xxx/*',
   //   microApp: 'slave-xxx',
   // },
-  // 微应用路由
+  // 路由模式引入子应用，也可以使用运行时配置
   {
     name: 'slave-umi4',
+    // 带上 * 通配符意味着将其下所有子路由都关联给微应用
     path: '/slave-umi4/*',
     microApp: 'slave-umi4',
+    microAppProps: {
+      autoSetLoading: true,
+      autoCaptureError: true,
+    },
   },
-  // 动态加载子应用
+  // 配置模式引入子应用 <MicroApp name="app1" autoCaptureError />
+  // loadMicroApp 动态手动加载子应用
   {
-    name: 'Purehtml',
+    name: 'purehtml',
     path: '/purehtml',
+    // microApp: 'purehtml',
     component: './load-purehtml',
   },
   // {
