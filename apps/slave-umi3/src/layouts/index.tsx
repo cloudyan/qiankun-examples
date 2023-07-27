@@ -63,7 +63,7 @@ export default function BasicLayout(props: React.PropsWithChildren<any>) {
 
         <Title level={4}>当前微应用</Title>
         <Descriptions bordered column={1} style={{marginBottom: 16}}>
-          <Descriptions.Item label={'名称'}>sub-app-1</Descriptions.Item>
+          <Descriptions.Item label={'名称'}>slave-umi3</Descriptions.Item>
           <Descriptions.Item label={'框架'}>React</Descriptions.Item>
           <Descriptions.Item label={'构建'}>基于umi3 + @umijs/plugin-qiankun</Descriptions.Item>
           <Descriptions.Item label={'当前路由'}>{history.location.pathname}</Descriptions.Item>

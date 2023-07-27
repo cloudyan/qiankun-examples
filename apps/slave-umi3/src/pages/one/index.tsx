@@ -11,7 +11,7 @@ const {Title, Text} = Typography;
 
 function Record(props: any) {
   const handleClick = () => {
-    props?.callback({name: 'sub-app-1-one', message: '我收到你的你的slogan啦~'})
+    props?.callback({name: 'slave-umi3', message: '我收到你的你的slogan啦~'})
   }
 
   return <>
