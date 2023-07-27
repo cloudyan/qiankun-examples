@@ -59,7 +59,7 @@ export default defineConfig({
         // },
       ],
     },
-    slave: {},  //微应用必须配置
+    slave: {},  // 微应用必须配置
   },
   mountElementId: 'micro-app-1',  //  容器ID
   runtimeHistory: {}, // 开始运行时history功能

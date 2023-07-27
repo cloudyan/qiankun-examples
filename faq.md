@@ -36,6 +36,8 @@
   - [6. 引入子应用](#6-引入子应用)
   - [7. 运行时的 publicPath 和构建时的 publicPath](#7-运行时的-publicpath-和构建时的-publicpath)
     - [微前端是否会影响现有的服务](#微前端是否会影响现有的服务)
+    - [关于 .env.local](#关于-envlocal)
+  - [扩展阅读](#扩展阅读)
 
 
 ## 1. 主应用 devtool 中报错
@@ -288,7 +290,31 @@ module.exports = {
 
 1. 灰度发布方案，不受影响
 
-扩展阅读
+### 关于 .env.local
+
+解释
+
+```bash
+.env                # 默认，所有情况下都会加载
+.env.local          # 所有情况下都会加载，但会被 git 忽略
+.env.[mode]         # 只在指定模式/环境下加载，如 development, test, production
+.env.[mode].local   # 只在指定模式下加载，但会被 git 忽略
+```
+
+以下是开发构建和生产构建的文件的优先级：
+
+- 开发：(npm start): `.env.development.local`, `.env.local`, `.env.development`, `.env`
+- 产品：(npm run build): `.env.production.local`, `.env.local`, `.env.production`, `.env`
+
+如果您想在本地环境中使用某些内容而不特定于开发构建或生产构建，则可以向文件中添加一些变量 `.env.local`。
+
+来源：https://create-react-app.dev/docs/adding-custom-environment-variables/#what-other-env-files-can-be-used
+
+一般情况，框架（vue, react, umi）使用环境变量，底层都是使用的 `dotenv` 这个包
+
+根据需要，我们为了本地开发环境，用于分配不同的微服务端口，也需要提交入库，所以使用 `.env`
+
+## 扩展阅读
 
 - 全局 modal 弹窗样式隔离问题
   - [样式隔离](https://github.com/umijs/qiankun/issues/1316)
