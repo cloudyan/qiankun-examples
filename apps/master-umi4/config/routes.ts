@@ -49,6 +49,15 @@ export default [
   // React16
   // React15
 
+  // 配置模式引入子应用 <MicroApp name="app1" autoCaptureError />
+  // loadMicroApp 动态手动加载子应用
+  {
+    name: 'purehtml',
+    path: '/purehtml',
+    // microApp: 'purehtml', // 不能写，没注册这个微应用
+    component: './load-purehtml',
+  },
+
   // {
   //   path: '/slave-xxx/*',
   //   microApp: 'slave-xxx',
@@ -64,13 +73,10 @@ export default [
       autoCaptureError: true,
     },
   },
-  // 配置模式引入子应用 <MicroApp name="app1" autoCaptureError />
-  // loadMicroApp 动态手动加载子应用
   {
-    name: 'purehtml',
-    path: '/purehtml',
-    // microApp: 'purehtml', // 不能写，没注册这个微应用
-    component: './load-purehtml',
+    name: '组合页面',
+    path: '/two-micro-app/',
+    component: './load',
   },
   // {
   //   name: 'react-micro-app',
@@ -98,36 +104,35 @@ export default [
   //   ],
   // },
 
-  // {
-  //   name: 'umi3-micro-app',
-  //   path: '/sub-app-1',
-  //   layout: true,
-  //   microApp: 'sub-app-1',
-  //   routes: [
-  //     {
-  //       name: '应用间通信',
-  //       path: '/sub-app-1/one',
-  //     },
-  //     {
-  //       name: '应用间嵌套',
-  //       path: '/sub-app-1/two',
-  //     },
-  //     {
-  //       name: '应用间通信',
-  //       path: '/sub-app-1/sub-app-3',
-  //       routes: [
-  //         {
-  //           name: '嵌套路由1',
-  //           path: '/sub-app-1/sub-app-3/one',
-  //         },
-  //         {
-  //           name: '嵌套路由2',
-  //           path: '/sub-app-1/sub-app-3/three',
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    name: 'slave-umi3',
+    path: '/slave-umi3',
+    microApp: 'slave-umi3',
+    routes: [
+      {
+        name: '应用间通信',
+        path: '/slave-umi3/one',
+      },
+      {
+        name: '应用间嵌套',
+        path: '/slave-umi3/two',
+      },
+      // {
+      //   name: '应用间通信',
+      //   path: '/slave-umi3/sub-app-3',
+      //   routes: [
+      //     {
+      //       name: '嵌套路由1',
+      //       path: '/slave-umi3/sub-app-3/one',
+      //     },
+      //     {
+      //       name: '嵌套路由2',
+      //       path: '/slave-umi3/sub-app-3/three',
+      //     },
+      //   ],
+      // },
+    ],
+  },
 
   {
     path: '/404',

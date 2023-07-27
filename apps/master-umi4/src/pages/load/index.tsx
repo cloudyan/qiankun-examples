@@ -49,8 +49,8 @@ const LoadMicroApp: React.FC = () => {
     if (containerRef.current) {
       microApp = loadMicroApp(
         {
-          name: 'sub-app-3',
-          entry: '//localhost:5003',
+          name: 'slave-umi4',
+          entry: '//localhost:5001',
           container: containerRef.current,
           props: {
             base: '/',
@@ -75,12 +75,12 @@ const LoadMicroApp: React.FC = () => {
       <Typography>
         <ul>
           <li>
-            <Title level={5}>微应用(sub-app-2)</Title>
+            <Title level={5}>微应用(slave-umi3)</Title>
             <Text>基于umi-MicroApp组件</Text>
             <div style={{ border: 'solid 1px #cecece' }}>
               <MicroApp
-                name="sub-app-2"
-                message={'hello sub-app-2, load as umi-MicroApp component'}
+                name="slave-umi3"
+                message={'hello slave-umi3, load as umi-MicroApp component'}
                 replyMessage={replyMessage}
                 callback={(message: string) => callback(message, 2)}
               />
@@ -88,7 +88,7 @@ const LoadMicroApp: React.FC = () => {
             <Divider />
           </li>
           <li>
-            <Title level={5}>路由微应用(sub-app-3)</Title>
+            <Title level={5}>路由微应用(slave-umi4)</Title>
             <Text>基于qiankun-loadMicroApp方法</Text>
             <div style={{ border: 'solid 1px #cecece' }} ref={containerRef} />
           </li>

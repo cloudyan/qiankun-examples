@@ -46,7 +46,7 @@ const qiankun = {
 
   // 应用 render 之前触发
   async mount(props: any) {
-    // 监听qiankun initState
+    //  监听qiankun initState
     props.onGlobalStateChange((state: any, prev: any) => {
       qiankun_state = state
       //  简单实现个订阅

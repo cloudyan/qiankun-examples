@@ -28,6 +28,7 @@ const getActiveRule = (hash: string) => {
 
 // 动态路由
 export const qiankun = {
+  // 注册子应用
   apps: [
     {
       name: 'slave-umi4',
@@ -49,6 +50,14 @@ export const qiankun = {
       // props: {
       //   history: {type: 'hash'}, // 子应用使用 hash 路由模式（未生效）
       // },
+    },
+    {
+      name: 'slave-umi3',
+      entry: 'http://127.0.0.1:5002',
+      activeRule: '/slave-umi3',
+      props: {
+        autoCaptureError: true,
+      },
     },
   ],
   // 路由模式引入子应用

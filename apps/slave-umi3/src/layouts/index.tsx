@@ -61,7 +61,7 @@ export default function BasicLayout(props: React.PropsWithChildren<any>) {
       </Sider>
       <Content style={{padding: '24px', minHeight: 280, background: '#fff'}}>
 
-        <Title level={4}>当前微应用</Title>
+        <Title level={4}>当前微应用 {history.location.pathname}</Title>
         <Descriptions bordered column={1} style={{marginBottom: 16}}>
           <Descriptions.Item label={'名称'}>slave-umi3</Descriptions.Item>
           <Descriptions.Item label={'框架'}>React</Descriptions.Item>

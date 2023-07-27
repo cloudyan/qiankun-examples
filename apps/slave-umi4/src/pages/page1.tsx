@@ -4,7 +4,7 @@ import { Link, Outlet } from '@umijs/max';
 export default function Page1() {
   const getHashUrl = (path: string, isLink: boolean = false) => {
     const {pathname } = window.location
-    return isLink ? path : `${pathname}${path}`
+    return isLink ? path : `${pathname}#${path}`
   }
   const getHistoryUrl = (path: string, isLink: boolean = false) => {
     let {pathname } = window.location
