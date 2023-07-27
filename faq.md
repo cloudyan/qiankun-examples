@@ -7,6 +7,21 @@
 - [探索微前端的场景极限](https://www.yuque.com/kuitos/gky7yw/uyp6wi)
 - [《基于微前端的大型中台项目融合方案》](https://www.yuque.com/zhuanjia/oeisq4/vt6kto)
 
+一些热门问题
+
+- 微前端框架方案对比？
+- 主应用和子应用路由该如何设计？
+- 主应用和子应用如何通信？
+- Modal 弹窗因样式隔离，样式丢失问题？
+- 子应用动态注册方案，即运行时注册？
+- 子应用间跳转是否兼容？
+- 改造微前端后，菜单怎么设计？如何更新？时机？
+- 主应用中如何引入子应用？
+- 对接微前端后，现有系统哪些能兼容，哪些需要改造？
+- 开发调试？
+
+下面是探究过程中遇到的问题和解决方案:
+
 目录
 
 - [FAQ](#faq)
@@ -14,12 +29,13 @@
   - [2. umi 应用配置](#2-umi-应用配置)
   - [3. 主应用是 browser 路由，子应用是 hash 路由的混合模式](#3-主应用是-browser-路由子应用是-hash-路由的混合模式)
   - [4. 子应用之间跳转](#4-子应用之间跳转)
-  - [5. 如何部署](#5-如何部署)
+  - [5. 如何部署，涉及到路由方案设计](#5-如何部署涉及到路由方案设计)
     - [场景 1：主应用和微应用部署到同一个服务器（同一个 IP 和端口）](#场景-1主应用和微应用部署到同一个服务器同一个-ip-和端口)
     - [场景 2：主应用和微应用部署在不同的服务器，使用 Nginx 代理访问](#场景-2主应用和微应用部署在不同的服务器使用-nginx-代理访问)
-    - [问题分析](#问题分析)
+    - [结论及问题分析](#结论及问题分析)
   - [6. 引入子应用](#6-引入子应用)
   - [7. 运行时的 publicPath 和构建时的 publicPath](#7-运行时的-publicpath-和构建时的-publicpath)
+    - [微前端是否会影响现有的服务](#微前端是否会影响现有的服务)
 
 
 ## 1. 主应用 devtool 中报错
@@ -39,6 +55,16 @@
   // base: 'slave-umi4',
 }
 ```
+
+使用路由模式加载子应用 `slave-umi4` 后，跳转 `purehtml` 子应用，报如下错误
+
+但使用 `<MicroApp />` 组件引入 `slave-umi4`，再跳转 `purehtml` 子应用就没问题
+
+```jsx
+<Router basename="/slave-umi4"> is not able to match the URL "/purehtml" because it does not start with the basename, so the <Router> won't render anything.
+```
+
+另外，有些浏览器插件也会引起错误日志，如 wiseone
 
 ## 2. umi 应用配置
 
@@ -91,7 +117,8 @@ registerMicroApps([
 <MicroAppLink name="app2" to="/home">go App2</MicroAppLink>
 
 // 跳转到主应用
-<MicroAppLink isMaster to="/table">
+<MicroAppLink isMaster to="/table">go Master</MicroAppLink>
+// 这个组件也是渲染为 a 标签
 ```
 
 - [微应用之间如何跳转？](https://qiankun.umijs.org/zh/faq#%E5%BE%AE%E5%BA%94%E7%94%A8%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%B7%B3%E8%BD%AC)
@@ -113,7 +140,7 @@ registerMicroApps([
 - https://umijs.org/docs/max/micro-frontend#%E5%AD%90%E5%BA%94%E7%94%A8%E4%B9%8B%E9%97%B4%E8%B7%B3%E8%BD%AC
 - https://qiankun.umijs.org/zh/faq#%E5%BE%AE%E5%BA%94%E7%94%A8%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%B7%B3%E8%BD%AC
 
-## 5. 如何部署
+## 5. 如何部署，涉及到路由方案设计
 
 > **建议**：主应用和微应用都是独立开发和部署，即它们都属于不同的仓库和服务。
 
@@ -155,23 +182,29 @@ registerMicroApps([
 
 一般这么做是因为**不允许主应用跨域访问微应用**，做法就是将主应用服务器上一个特殊路径的请求全部转发到微应用的服务器上，即通过代理实现“微应用部署在主应用服务器上”的效果。
 
-### 问题分析
+### 结论及问题分析
 
-目前已经将子应用部署在二级目录，并提供服务，存在大量采用引用路径
+目前现状是：子应用部署在二级目录，已在线提供服务，存在大量采用引用路径
 
-期望，主应用部署根目录，子应用继续在二级目录，但转为微前端后，菜单访问路径保持不变
+期望：
 
-注意点
+- 主应用部署根目录
+- 子应用继续在二级目录
+- 子应用对接为微前端服务后，菜单访问路径保持不变
+
+问题点
 
 1. `activeRule` 不能和微应用的真实访问路径，一定是不能一样的
-   1. 需要保证 `activeRule` 和 `entry` 不同
-   2. 否则主应用页面刷新就变成微应用
-2. 菜单路径肯定要变，导致菜单要变，想不变，就要共存
-   1. 要先有测试地址，activeRule 适用新地址，测试完成，可以与真实地址交换
-   2. 这里涉及到批量刷权限配置
-   3. 思考：权限跟菜单绑定？路由绑定？是否有更好的设计？
+   1. `entry` 是微应用的真实访问地址，即现已经在线的应用地址（菜单地址）
+   2. `activeRule` 是微应用对接微前端的服务访问路径
+   3. 微前端要求，需要 `activeRule` 和 `entry` 不同
+2. 因 `activeRule` 要不同，所以新的和老的肯定不一样，要做适配或迁移改造
+   1. `activeRule` 使用新地址，完成测试，上线后可以变更为旧地址（同时还需要提供真实访问地址）
+   2. 初期，这里涉及到批量刷权限配置
+   3. 扩展思考：权限跟菜单绑定？路由绑定？是否有更好的设计？
 3. 主应用在根目录，影响的不仅仅 UI 应用，还有后端等服务
-   1. 可以开白名单指定特点路径转发到根目录（开启微服务的子应用），响应主应用服务
+   1. 什么时候响应为根路径的服务
+   2. 可以开白名单指定特点路径（针对已开启微服务的子应用）响应为根目录服务
 
 能否更精简，根据请求特定标识区分真实服务与微服务？
 
@@ -196,15 +229,27 @@ registerMicroApps([
 
 ## 7. 运行时的 publicPath 和构建时的 publicPath
 
+问题来源：https://qiankun.umijs.org/zh/guide/tutorial#%E5%BE%AE%E5%BA%94%E7%94%A8
+
 新增 `public-path.js` 文件，用于修改运行时的 `publicPath`。[什么是运行时的 publicPath ？](https://webpack.docschina.org/guides/public-path/#on-the-fly)
 
 > 注意：运行时的 publicPath 和构建时的 publicPath 是不同的，两者不能等价替代。
 
-平时我们接触的一般都是构建时的 publicPath, 在 webpack 中配置
+平时我们接触的，在 webpack 中配置，一般都是构建时的 publicPath。这里说的是运行时 publicPath，那有什么用呢？
+
+publicPath 配置项，非常有用，我们通过它来指定应用程序中**所有资源的基础路径**。
+
+一般是在构建时就确定了这个基础路径，比如指定为某个环境变量 `process.env.ASSET_PATH`，但有时，在运行时才能确定这个基础路径，就需要用到运行时修改
+
+1. 什么时候需要用到运行时修改
+   1. 一个服务同时存在多个访问路径，就需要用到运行时修改
+2. 怎么修改？
+   1. 参看下文
 
 webpack 暴露了一个名为 `__webpack_public_path__` 的全局变量。所以在应用程序的 entry point 中，可以直接如下设置：
 
 ```js
+// ASSET_PATH 资源路径环境变量
 __webpack_public_path__ = process.env.ASSET_PATH;
 ```
 
@@ -216,6 +261,12 @@ import './public-path';
 import './app';
 ```
 
+当在 webpack 配置中设置了 output.publicPath 选项时，webpack 会在构建输出包的代码中自动注入 `__webpack_public_path__` 变量，并将其值设置为 output.publicPath 的配置值。
+
+怎么运行时动态修改呢？将其赋值为一个 window 变量，就可以动态修改了。
+
+qiankun 中会如下注入内容
+
 ```js
 // public-path.js
 if (window.__POWERED_BY_QIANKUN__) {
@@ -223,3 +274,22 @@ if (window.__POWERED_BY_QIANKUN__) {
 }
 ```
 
+有可能你事先不知道 publicPath 是什么，webpack 会自动根据 `import.meta.url`、`document.currentScript`、`script.src` 或者 `self.location` 变量设置 publicPath。你需要做的是将 `output.publicPath` 设为 `'auto'`：
+
+```js
+module.exports = {
+  output: {
+    publicPath: 'auto',
+  },
+};
+```
+
+### 微前端是否会影响现有的服务
+
+1. 灰度发布方案，不受影响
+
+扩展阅读
+
+- 全局 modal 弹窗样式隔离问题
+  - [样式隔离](https://github.com/umijs/qiankun/issues/1316)
+  - [解决微前端 qiankun 中子应用弹窗样式丢失的问题](https://juejin.cn/post/7102698184496906247)
