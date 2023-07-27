@@ -13,11 +13,11 @@ export default [
     path: '/access',
     component: './Access',
   },
-  {
-    name: 'CRUD 示例',
-    path: '/table',
-    component: './Table',
-  },
+  // {
+  //   name: 'CRUD 示例',
+  //   path: '/table',
+  //   component: './Table',
+  // },
   {
     name: '主题',
     path: '/theme',
@@ -25,24 +25,24 @@ export default [
   },
   {
     name: 'Umi4',
-    path: '/umi4',
-    component: './Home',
+    path: '/umi4/',
+    component: './load-umi4',
   },
-  {
-    name: 'Umi3',
-    path: '/umi3',
-    component: './Home',
-  },
-  {
-    name: 'Webpack',
-    path: '/webpack',
-    component: './Home',
-  },
-  {
-    name: 'MF-host',
-    path: '/mf-host',
-    component: './Home',
-  },
+  // {
+  //   name: 'Umi3',
+  //   path: '/umi3',
+  //   component: './Home',
+  // },
+  // {
+  //   name: 'Webpack',
+  //   path: '/webpack',
+  //   component: './Home',
+  // },
+  // {
+  //   name: 'MF-host',
+  //   path: '/mf-host',
+  //   component: './Home',
+  // },
   // vue2
   // vue3
   // React17
@@ -69,7 +69,7 @@ export default [
   {
     name: 'purehtml',
     path: '/purehtml',
-    // microApp: 'purehtml',
+    // microApp: 'purehtml', // 不能写，没注册这个微应用
     component: './load-purehtml',
   },
   // {

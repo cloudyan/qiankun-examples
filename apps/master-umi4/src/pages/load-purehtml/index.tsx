@@ -51,6 +51,10 @@ const LoadMicroApp: React.FC = () => {
       // TODO: 导致跨子应用跳转的 MicroAppLink 组件有报错提示
       // 是否应该先注册，再加载子应用
 
+      // loadMicroApp 实现以组件的方式使用微应用
+      // 开发者可以在脱离路由的限制下，以更自由的方式去渲染我们的微应用。
+      // 这类微应用必须是不带路由系统的 widget 类型，此时可以改为使用 memory history 模式
+      // 可以封装 MicroApp 组件来复用，umi 也有提供 MicroApp
       microApp = loadMicroApp(
         {
           name: 'purehtml',

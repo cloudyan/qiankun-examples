@@ -27,7 +27,8 @@ export default defineConfig({
   routes,
   qiankun: {
     master: {
-      prefetch: false,
+      prefetch: true,
+      sandbox: true,
       // 这里不写，可在 app.ts 中使用运行时注册
       // apps: [],
     },

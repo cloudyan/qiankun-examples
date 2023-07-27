@@ -32,7 +32,8 @@ export const qiankun = {
     {
       name: 'slave-umi4',
       entry: 'http://127.0.0.1:5001', // your slave app address
-      // activeRule: 'slave-umi4',
+      activeRule: '/slave-umi4',
+      credentials: true,
       // activeRule: getActiveRule('#/slave-umi4'),
       // activeRule: (location) => {
       //   debugger;
