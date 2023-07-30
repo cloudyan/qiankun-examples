@@ -1,22 +1,22 @@
-// import CustomErrorBoundary from '@/components/CustomErrorBoundary';
+import CustomErrorBoundary from '@/components/CustomErrorBoundary';
 import { PageContainer } from '@ant-design/pro-components';
-// import { MicroApp } from '@umijs/max';
+import { MicroApp } from '@umijs/max';
 import { Button, Divider, Space } from 'antd';
 import styles from './index.module.less';
 
-// const defaultParams = {
-//   base: '/',
-//   url: '/theme',
-//   settings: {
-//     sandbox: {
-//       experimentalStyleIsolation: true,
-//     },
-//   },
-//   //  自动捕获错误, 吊起 ant <Result />
-//   // autoCaptureError: true
-//   //  自定义异常页面
-//   errorBoundary: (error: any) => <CustomErrorBoundary error={error} />,
-// };
+const defaultParams = {
+  base: '/',
+  url: '/theme',
+  settings: {
+    sandbox: {
+      experimentalStyleIsolation: true,
+    },
+  },
+  //  自动捕获错误, 吊起 ant <Result />
+  // autoCaptureError: true
+  //  自定义异常页面
+  errorBoundary: (error: any) => <CustomErrorBoundary error={error} />,
+};
 
 const text = `
 // CSS Modules to index.module.less
@@ -76,11 +76,11 @@ export default function Theme() {
         </Space>
       </div>
       <Divider />
-      {/* <h3>微应用(sub-app-1)</h3>
-      <MicroApp name="sub-app-1" {...defaultParams} />
+      <h3>微应用(slave-umi4)</h3>
+      <MicroApp name="slave-umi4" {...defaultParams} />
       <Divider />
-      <h3>微应用(sub-app-3)</h3>
-      <MicroApp name="sub-app-3" {...defaultParams} /> */}
+      <h3>微应用(slave-umi3)</h3>
+      <MicroApp name="slave-umi3" {...defaultParams} />
     </PageContainer>
   );
 }

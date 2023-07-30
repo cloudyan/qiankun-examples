@@ -127,6 +127,9 @@ importers:
       '@umijs/max':
         specifier: ^4.0.72
         version: 4.0.72(@babel/core@7.22.9)(@types/react-dom@18.0.11)(@types/react@18.0.33)(dva@2.5.0-beta.2)(postcss@8.4.27)(prettier@2.8.7)(rc-field-form@1.34.2)(react-dom@17.0.2)(react@17.0.2)(styled-components@6.0.5)(typescript@5.1.6)(webpack@5.88.2)
+      antd:
+        specifier: '4'
+        version: 4.24.12(react-dom@17.0.2)(react@17.0.2)
     devDependencies:
       '@types/react':
         specifier: ^18.0.33
@@ -6990,7 +6993,7 @@ packages:
       babel-plugin-syntax-jsx: 6.18.0
       lodash: 4.17.21
       picomatch: 2.3.1
-      styled-components: 6.0.5(react-dom@17.0.2)(react@18.1.0)
+      styled-components: 6.0.5(react-dom@17.0.2)(react@17.0.2)
     dev: false
 
   /babel-plugin-syntax-jsx@6.18.0:
@@ -8630,7 +8633,7 @@ packages:
       dva: ^2.5.0-0
     dependencies:
       '@babel/runtime': 7.22.6
-      dva: 2.5.0-beta.2(react-dom@17.0.2)(react@18.1.0)
+      dva: 2.5.0-beta.2(react-dom@17.0.2)(react@17.0.2)
       immer: 8.0.4
     dev: false
 
@@ -8643,7 +8646,7 @@ packages:
       dva-core: 2.0.4(redux@3.7.2)
     dev: false
 
-  /dva@2.5.0-beta.2(react-dom@17.0.2)(react@18.1.0):
+  /dva@2.5.0-beta.2(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-kc2+CHhF1cNIU3Rg1miMhHgOKJ/VDrq9d6ynVBZf1EN2YKWU3MVFq/uTTBqMr2qkR0m9f8VKHOFmfKLtfMI93Q==}
     peerDependencies:
       react: 15.x || ^16.0.0-0
@@ -8658,11 +8661,11 @@ packages:
       history: 4.10.1
       invariant: 2.2.4
       isomorphic-fetch: 2.2.1
-      react: 18.1.0
-      react-dom: 17.0.2(react@18.1.0)
-      react-redux: 5.1.2(react@18.1.0)(redux@3.7.2)
-      react-router-dom: 4.3.1(react@18.1.0)
-      react-router-redux: 5.0.0-alpha.9(react@18.1.0)
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+      react-redux: 5.1.2(react@17.0.2)(redux@3.7.2)
+      react-router-dom: 4.3.1(react@17.0.2)
+      react-router-redux: 5.0.0-alpha.9(react@17.0.2)
       redux: 3.7.2
     dev: false
 
@@ -16911,7 +16914,7 @@ packages:
     resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==}
     dev: false
 
-  /react-redux@5.1.2(react@18.1.0)(redux@3.7.2):
+  /react-redux@5.1.2(react@17.0.2)(redux@3.7.2):
     resolution: {integrity: sha512-Ns1G0XXc8hDyH/OcBHOxNgQx9ayH3SPxBnFCOidGKSle8pKihysQw2rG/PmciUQRoclhVBO8HMhiRmGXnDja9Q==}
     peerDependencies:
       react: ^0.14.0 || ^15.0.0-0 || ^16.0.0-0
@@ -16922,7 +16925,7 @@ packages:
       invariant: 2.2.4
       loose-envify: 1.4.0
       prop-types: 15.8.1
-      react: 18.1.0
+      react: 17.0.2
       react-is: 16.13.1
       react-lifecycles-compat: 3.0.4
       redux: 3.7.2
@@ -17015,7 +17018,7 @@ packages:
       react: 16.14.0
       react-router: 5.2.0(react@17.0.0)
 
-  /react-router-dom@4.3.1(react@18.1.0):
+  /react-router-dom@4.3.1(react@17.0.2):
     resolution: {integrity: sha512-c/MlywfxDdCp7EnB7YfPMOfMD3tOtIjrQlj/CKfNMBxdmpJP8xcz5P/UAFn3JbnQCNUxsHyVVqllF9LhgVyFCA==}
     peerDependencies:
       react: '>=15'
@@ -17024,8 +17027,8 @@ packages:
       invariant: 2.2.4
       loose-envify: 1.4.0
       prop-types: 15.8.1
-      react: 18.1.0
-      react-router: 4.3.1(react@18.1.0)
+      react: 17.0.2
+      react-router: 4.3.1(react@17.0.2)
       warning: 4.0.3
     dev: false
 
@@ -17079,7 +17082,7 @@ packages:
       react-router: 6.3.0(react@18.1.0)
     dev: false
 
-  /react-router-redux@5.0.0-alpha.9(react@18.1.0):
+  /react-router-redux@5.0.0-alpha.9(react@17.0.2):
     resolution: {integrity: sha512-euSgNIANnRXr4GydIuwA7RZCefrLQzIw5WdXspS8NPYbV+FxrKSS9MKG7U9vb6vsKHONnA4VxrVNWfnMUnUQAw==}
     deprecated: This project is no longer maintained.
     peerDependencies:
@@ -17087,11 +17090,11 @@ packages:
     dependencies:
       history: 4.10.1
       prop-types: 15.8.1
-      react: 18.1.0
-      react-router: 4.3.1(react@18.1.0)
+      react: 17.0.2
+      react-router: 4.3.1(react@17.0.2)
     dev: false
 
-  /react-router@4.3.1(react@18.1.0):
+  /react-router@4.3.1(react@17.0.2):
     resolution: {integrity: sha512-yrvL8AogDh2X42Dt9iknk4wF4V8bWREPirFfS9gLU1huk6qK41sg7Z/1S81jjTrGHxa3B8R3J6xIkDAA6CVarg==}
     peerDependencies:
       react: '>=15'
@@ -17102,7 +17105,7 @@ packages:
       loose-envify: 1.4.0
       path-to-regexp: 1.8.0
       prop-types: 15.8.1
-      react: 18.1.0
+      react: 17.0.2
       warning: 4.0.3
     dev: false
 
@@ -18438,7 +18441,7 @@ packages:
       - supports-color
     dev: false
 
-  /styled-components@6.0.5(react-dom@17.0.2)(react@18.1.0):
+  /styled-components@6.0.5(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-308zi5o7LrA9cVaP4nPD0TaUpOjGPePkAUFb/OGB0xRI3I9ozpW5UyASvRVi9wJcYASG+Y3mLDLDUZC7nqzimw==}
     engines: {node: '>= 16'}
     peerDependencies:
@@ -18465,8 +18468,8 @@ packages:
       css-to-react-native: 3.2.0
       csstype: 3.1.2
       postcss: 8.4.27
-      react: 18.1.0
-      react-dom: 17.0.2(react@18.1.0)
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
       shallowequal: 1.1.0
       stylis: 4.3.0
       tslib: 2.6.0
