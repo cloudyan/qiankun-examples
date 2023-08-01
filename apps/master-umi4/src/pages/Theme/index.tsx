@@ -77,10 +77,10 @@ export default function Theme() {
       </div>
       <Divider />
       <h3>微应用(slave-umi4)</h3>
-      <MicroApp name="slave-umi4" {...defaultParams} />
+      {/* <MicroApp name="slave-umi4" {...defaultParams} /> */}
       <Divider />
       <h3>微应用(slave-umi3)</h3>
-      <MicroApp name="slave-umi3" {...defaultParams} />
+      {/* <MicroApp name="slave-umi3" {...defaultParams} /> */}
     </PageContainer>
   );
 }

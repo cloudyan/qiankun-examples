@@ -4,7 +4,7 @@ export default defineConfig({
   antd: {},
   locale: false,
   theme: {
-    'primary-color': '#ea1244'
+    '@primary-color': '#ea1244'
   },
   hash: true,
   nodeModulesTransform: {
@@ -22,16 +22,21 @@ export default defineConfig({
       routes: [
         {
           path: '/',
-          redirect: '/one'
+          redirect: '/home'
         },
         {
-          path: '/one',
-          name: 'one',
+          path: '/home',
+          name: 'home',
+          component: '@/pages/home',
+        },
+        {
+          path: '/page1',
+          name: 'page1',
           component: '@/pages/one',
         },
         {
-          path: '/two',
-          name: 'two',
+          path: '/page2',
+          name: 'page2',
           component: '@/pages/two',
         },
         // {
@@ -46,22 +51,12 @@ export default defineConfig({
   fastRefresh: {},
   mfsu: false,
   qiankun: {
-    master: {
-      // 注册子应用信息
-      apps: [
-        // {
-        //   name: 'sub-app-2',
-        //   entry: '//localhost:5002',
-        // },
-        // {
-        //   name: 'sub-app-3',
-        //   entry: '//localhost:5003',
-        // },
-      ],
-    },
     slave: {},  // 微应用必须配置
   },
   mountElementId: 'micro-app-1',  //  容器ID
-  runtimeHistory: {}, // 开始运行时history功能
+  // runtimeHistory: {}, // 开始运行时history功能
+  history: {
+    type: 'hash'
+  },
   base: '/',  //  umi微应用独立访问需要配置这个参数, 否则默认获取package.name作为base
 });

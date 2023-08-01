@@ -11,10 +11,15 @@ export default defineConfig({
   },
   // base: 'slave-umi4',
   hash: true,
+  antd: {
+    configProvider: {
+      prefixCls: 'umi4Slave',
+    },
+  },
   lessLoader: {
     modifyVars: {
-      '@ant-prefix': 'mainAnt',
-      'primary-color': '#1DA57A',
+      '@ant-prefix': 'umi4Slave',
+      'primary-color': '#5A54F9',
     },
     javascriptEnabled: true,
   },

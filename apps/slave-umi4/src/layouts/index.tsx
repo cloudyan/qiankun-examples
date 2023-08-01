@@ -1,9 +1,10 @@
 import { Link, Outlet } from '@umijs/max';
-import styles from './index.less';
+// import 'antd/dist/antd.css';
+import './index.less';
 
 export default function Layout() {
   return (
-    <div className={styles.navs}>
+    <div className="navs">
       <ul>
         <li>
           <Link to="/">Home</Link>

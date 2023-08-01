@@ -23,11 +23,6 @@ export default [
     path: '/theme',
     component: './Theme',
   },
-  {
-    name: 'Umi4',
-    path: '/umi4/',
-    component: './load-umi4',
-  },
   // {
   //   name: 'Umi3',
   //   path: '/umi3',
@@ -43,6 +38,7 @@ export default [
   //   path: '/mf-host',
   //   component: './Home',
   // },
+
   // vue2
   // vue3
   // React17
@@ -64,7 +60,12 @@ export default [
   // },
   // 路由模式引入子应用，也可以使用运行时配置
   {
-    name: 'slave-umi4',
+    name: 'load-umi4(MicroApp)',
+    path: '/load-umi4/',
+    component: './load-umi4',
+  },
+  {
+    name: 'slave-umi4(路由)',
     // 带上 * 通配符意味着将其下所有子路由都关联给微应用
     path: '/slave-umi4/*',
     microApp: 'slave-umi4',
@@ -74,15 +75,15 @@ export default [
     },
   },
   {
-    name: '组合页面',
-    path: '/two-micro-app/',
+    name: '组合页面 umi3,umi4',
+    path: '/two-micro-app/*',
+    component: './load-umi',
+  },
+  {
+    name: 'sub-app-2(react)',
+    path: '/sub-app-2',
     component: './load',
   },
-  // {
-  //   name: 'react-micro-app',
-  //   path: '/sub-app-2',
-  //   component: './load',
-  // },
 
   // {
   //   name: 'react-router-micro-app',
@@ -105,32 +106,18 @@ export default [
   // },
 
   {
-    name: 'slave-umi3',
-    path: '/slave-umi3',
-    microApp: 'slave-umi3',
+    name: 'sub-app-1',
+    path: '/sub-app-1',
+    microApp: 'sub-app-1',
     routes: [
       {
         name: '应用间通信',
-        path: '/slave-umi3/one',
+        path: '/sub-app-1/one',
       },
       {
         name: '应用间嵌套',
-        path: '/slave-umi3/two',
+        path: '/sub-app-1/two',
       },
-      // {
-      //   name: '应用间通信',
-      //   path: '/slave-umi3/sub-app-3',
-      //   routes: [
-      //     {
-      //       name: '嵌套路由1',
-      //       path: '/slave-umi3/sub-app-3/one',
-      //     },
-      //     {
-      //       name: '嵌套路由2',
-      //       path: '/slave-umi3/sub-app-3/three',
-      //     },
-      //   ],
-      // },
     ],
   },
 

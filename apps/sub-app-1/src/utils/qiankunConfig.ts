@@ -1,7 +1,4 @@
-import {
-  history,
-  // setCreateHistoryOptions,
-} from 'umi';
+import {history, setCreateHistoryOptions} from "umi";
 
 let qiankun_state: any;
 let qiankun_props: any;
@@ -27,21 +24,21 @@ const qiankun = {
   master: {
     // 注册子应用信息
     apps: [
-      // {
-      //   name: 'sub-app-2',
-      //   entry: '//localhost:5002',
-      // },
-      // {
-      //   name: 'sub-app-3',
-      //   entry: '//localhost:5003',
-      // },
+      {
+        name: 'sub-app-2',
+        entry: '//localhost:5002',
+      },
+      {
+        name: 'sub-app-3',
+        entry: '//localhost:5003',
+      },
     ],
     prefetch: false,
   },
 
   // 应用加载之前
   async bootstrap(props: any) {
-    // setCreateHistoryOptions({basename: props?.base || '/'})
+    setCreateHistoryOptions({basename: props?.base || '/'})
   },
 
   // 应用 render 之前触发

@@ -1,3 +1,5 @@
+import { notification } from 'antd';
+import React, {useState} from 'react';
 import { isAppActive } from './helper'
 // 运行时配置
 
@@ -7,11 +9,52 @@ export async function getInitialState(): Promise<{ name: string }> {
   return { name: '@umijs/max' };
 }
 
+const callback = (data: { name: string, message: string }) => {
+  notification.open({
+      type: 'info',
+      message: `来自${data.name}的Reply`,
+      description: data.message,
+      onClick: () => {
+          console.log('Notification Clicked!');
+      },
+  });
+}
+
 export const layout = () => {
+
+  const [openKeys, setOpenKeys] = useState<string[]>([])
+
   return {
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
     menu: {
       locale: false,
+    },
+    menuProps: {
+      openKeys,
+    },
+    onOpenChange: setOpenKeys,
+    rightContentRender: false,
+    token: {
+      sider: {
+        menuBackgroundColor: '#004FD9',
+        menuTextColor: 'rgba(255,255,255,0.85)',
+        subMenuSelectedTextColor: '#fff',
+        menuTextColorSecondary: 'rgba(255,255,255,0.65)',
+        menuSelectedTextColor: '#fff',
+        menuTitleTextColor: 'rgba(255,255,255,0.95)',
+        menuItemHoverBgColor: 'rgba(0,0,0,0.06)',
+        menuItemCollapsedHoverBgColor: 'rgba(0,0,0,0.06)',
+        menuItemSelectedBgColor: 'rgba(0,0,0,0.15)',
+        menuItemCollapsedSelectedBgColor: 'rgba(0,0,0,0.15)',
+        menuItemDividerColor: 'rgba(255,255,255,0.15)',
+        collapsedButtonBgColor: '#fff',
+        collapsedButtonTextColor: 'rgba(0,0,0,0.45)',
+        collapsedButtonHoverTextColor: 'rgba(0,0,0,0.65)',
+        menuSubArrowColor: 'rgba(255,255,255,0.15)',
+      },
+      appListIconTextColor: 'rgba(255,255,255,0.85)',
+      appListIconHoverTextColor: 'rgba(255,255,255,0.95)',
+      appListIconHoverBgColor: 'rgba(0,0,0,0.06)',
     },
   };
 };
@@ -32,9 +75,13 @@ export const qiankun = {
   apps: [
     {
       name: 'slave-umi4',
-      entry: 'http://127.0.0.1:5001', // your slave app address
+      entry: '//localhost:6001', // your slave app address
       activeRule: '/slave-umi4',
       credentials: true,
+      container: '#slave-umi4',
+      sandbox: {
+        experimentalStyleIsolation: true
+      },
       // activeRule: getActiveRule('#/slave-umi4'),
       // activeRule: (location) => {
       //   debugger;
@@ -53,11 +100,47 @@ export const qiankun = {
     },
     {
       name: 'slave-umi3',
-      entry: 'http://127.0.0.1:5002',
+      entry: '//localhost:6002',
       activeRule: '/slave-umi3',
       props: {
         autoCaptureError: true,
       },
+      container: '#slave-umi3',
+      sandbox: {
+        experimentalStyleIsolation: true
+      },
+    },
+    {
+      name: 'sub-app-1',
+      entry: '//localhost:5001',
+      activeRule: '/sub-app-1',
+      container: '#micro-app-1',
+      props: {
+        autoCaptureError: true,
+        base: '/sub-app-1',
+        defaultProps: {
+          slogan: 'Hello MicroFrontend from qiankun-apps-props',
+          callback,
+        }
+      },
+    },
+    {
+        name: 'sub-app-2',
+        entry: '//localhost:5002',
+        activeRule: '/sub-app-2',
+        container: '#micro-app-2',
+        sandbox: {
+            experimentalStyleIsolation: true
+        },
+    },
+    {
+        name: 'sub-app-3',
+        entry: '//localhost:5003',
+        activeRule: '/sub-app-3',
+        container: '#micro-app-3',
+        sandbox: {
+            experimentalStyleIsolation: true
+        },
     },
   ],
   // 路由模式引入子应用
@@ -74,5 +157,6 @@ export const qiankun = {
   //     },
   //   },
   // ],
+
 };
 

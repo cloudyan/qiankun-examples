@@ -58,7 +58,7 @@ const LoadMicroApp: React.FC = () => {
       microApp = loadMicroApp(
         {
           name: 'purehtml',
-          entry: '//localhost:5009',
+          entry: '//localhost:6009',
           container: containerRef.current,
           props: {
             base: '/',
