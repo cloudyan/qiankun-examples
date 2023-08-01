@@ -1,6 +1,7 @@
 import { notification } from 'antd';
 import React, {useState} from 'react';
 import { isAppActive } from './helper'
+import './app.css'
 // 运行时配置
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
@@ -11,12 +12,12 @@ export async function getInitialState(): Promise<{ name: string }> {
 
 const callback = (data: { name: string, message: string }) => {
   notification.open({
-      type: 'info',
-      message: `来自${data.name}的Reply`,
-      description: data.message,
-      onClick: () => {
-          console.log('Notification Clicked!');
-      },
+    type: 'info',
+    message: `来自${data.name}的Reply`,
+    description: data.message,
+    onClick: () => {
+      console.log('Notification Clicked!');
+    },
   });
 }
 

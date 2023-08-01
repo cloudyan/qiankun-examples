@@ -3,9 +3,21 @@ import routes from './config/routes'
 
 export default defineConfig({
   antd: {
-    configProvider: {
-      prefixCls: 'master-antd',
-    }
+    // valid for antd5.0 only
+    theme: {
+      token: {
+        colorPrimary: "#82b2f4",
+      },
+    },
+    /**
+     * antd@5.1.0 ~ 5.2.3 仅支持 appConfig: {}, 来启用 <App /> 组件;
+     * antd@5.3.0 及以上才支持 appConfig: { // ... } 来添加更多 App 配置项;
+     */
+    appConfig: {
+      message: {
+        maxCount: 3,
+      },
+    },
   },
   access: {},
   model: {},
@@ -17,13 +29,13 @@ export default defineConfig({
     title: 'qiankun',
     locale: false,
   },
-  lessLoader: {
-    modifyVars: {
-      '@ant-prefix': 'master-antd',
-      'primary-color': '#004FD9',
-    },
-    javascriptEnabled: true,
-  },
+  // lessLoader: {
+  //   modifyVars: {
+  //     '@ant-prefix': 'umi4Master',
+  //     'primary-color': '#408df8',
+  //   },
+  //   javascriptEnabled: true,
+  // },
   routes,
   qiankun: {
     master: {

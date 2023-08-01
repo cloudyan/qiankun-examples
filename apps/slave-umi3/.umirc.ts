@@ -1,10 +1,22 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
-  antd: {},
   locale: false,
+  antd: {
+    // 暗色主题，版本 4 时才支持
+    // dark: true,
+    // 紧凑主题在 antd@>4.1.0 时支持
+    // compact: true,
+
+    // configProvider 不支持
+    // configProvider: {
+    //   prefixCls: 'umi3Slave',
+    // },
+  },
   theme: {
-    '@primary-color': '#ea1244'
+    // '@ant-prefix': 'umi3Slave', // 不生效
+    '@primary-color': '#E0282E', // 不约束前缀 prefix，还是会冲突的
+    // TODO: 微应用间会相互冲突不？目前测试是会每次切换加载样式，所以没冲突
   },
   hash: true,
   nodeModulesTransform: {

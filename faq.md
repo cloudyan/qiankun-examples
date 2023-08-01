@@ -37,6 +37,7 @@
   - [7. 运行时的 publicPath 和构建时的 publicPath](#7-运行时的-publicpath-和构建时的-publicpath)
     - [微前端是否会影响现有的服务](#微前端是否会影响现有的服务)
     - [关于 .env.local](#关于-envlocal)
+    - [样式隔离](#样式隔离)
   - [扩展阅读](#扩展阅读)
 
 
@@ -313,6 +314,125 @@ module.exports = {
 一般情况，框架（vue, react, umi）使用环境变量，底层都是使用的 `dotenv` 这个包
 
 根据需要，我们为了本地开发环境，用于分配不同的微服务端口，也需要提交入库，所以使用 `.env`
+
+### 样式隔离
+
+我们对多个微应用需要控制样式隔离，这里我们通过定制主题查看不同微应用的样式
+
+不同项目配置不同，以下为参考
+
+隔离样式，配置如下
+
+```js
+export const qiankun = {
+  // 注册子应用
+  apps: [
+    {
+      name: 'slave-umi3',
+      entry: '//localhost:6002',
+      activeRule: '/slave-umi3',
+      props: {
+        autoCaptureError: true,
+      },
+      container: '#slave-umi3',
+      // 隔离样式 experimentalStyleIsolation
+      sandbox: {
+        experimentalStyleIsolation: true,
+      },
+    },
+  ],
+}
+```
+
+修改主题如下：
+
+umi4 + antd4
+
+```js
+// umi4 + antd4
+{
+  antd: {
+    configProvider: {
+      prefixCls: 'umi4Slave',
+    },
+  },
+  lessLoader: {
+    modifyVars: {
+      '@ant-prefix': 'umi4Slave',
+      '@primary-color': '#5A54F9',
+    },
+    javascriptEnabled: true,
+  },
+}
+```
+
+umi3 + antd4
+
+```js
+{
+  // umi3 + antd4
+  antd: {},
+  theme: {
+    '@primary-color': '#ea1244'
+  },
+}
+```
+
+umi4 + antd5
+
+```jsx
+{
+  // umi4 + antd5
+  antd: {
+    // valid for antd5.0 only
+    theme: {
+      token: {
+        colorPrimary: "#82b2f4",
+      },
+    },
+    /**
+     * antd@5.1.0 ~ 5.2.3 仅支持 appConfig: {}, 来启用 <App /> 组件;
+     * antd@5.3.0 及以上才支持 appConfig: { // ... } 来添加更多 App 配置项;
+     * 项目中 Modal 组件要改为使用 App.modal.success({})
+     */
+    appConfig: {
+      message: {
+        maxCount: 3,
+      },
+    },
+  },
+}
+
+// 使用示例
+import { App, Button } from 'antd';
+import { useModel } from '@umijs/max';
+
+const App = () => {
+  const { name } = useModel('global');
+  const { message, modal } = App.useApp();
+
+  const showModal = () => {
+    // 这里不使用 Modal, 使用 modal
+    modal.warning({
+      title: '标题',
+      content: '欢迎使用',
+    });
+  };
+
+  return (
+    <>
+      <Button type="primary" onClick={showModal}>打开弹窗</Button>
+    </>
+  )
+}
+```
+
+参考
+
+- [umi4 怎么实现动态切换主题](https://github.com/umijs/umi/discussions/11142)
+  - 这里 [umi-plugin-antd-style](https://github.com/xiaohuoni/umi-plugin-antd-style)，有个在线 [demo](https://codesandbox.io/p/github/xiaohuoni/plugin-antd-style-demo/main?file=/config/config.ts)
+- [Ant Design Style](https://ant-design.github.io/antd-style/)
+- [Dumi Theme](https://dumi-theme-antd-style.arvinx.app/)
 
 ## 扩展阅读
 

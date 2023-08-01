@@ -106,7 +106,7 @@ export default [
   // },
 
   {
-    name: 'sub-app-1',
+    name: 'sub-app-1(umi3)',
     path: '/sub-app-1',
     microApp: 'sub-app-1',
     routes: [

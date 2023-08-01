@@ -1,6 +1,6 @@
-import {Descriptions, Layout, Menu, Typography} from "antd";
-import React, {useEffect, useState} from "react";
-import {useHistory} from "umi";
+import {Button, Descriptions, Layout, Menu, Typography} from 'antd';
+import React, {useEffect, useState} from 'react';
+import {useHistory} from 'umi';
 import './index.less'
 
 const {Sider, Content} = Layout
@@ -62,6 +62,7 @@ export default function BasicLayout(props: React.PropsWithChildren<any>) {
       <Content style={{padding: '24px', minHeight: 280, background: '#fff'}}>
 
         <Title level={4}>当前微应用</Title>
+        <Button type="primary">按钮</Button>
         <Descriptions bordered column={1} style={{marginBottom: 16}}>
           <Descriptions.Item label={'名称'}>sub-app-1</Descriptions.Item>
           <Descriptions.Item label={'框架'}>React</Descriptions.Item>
