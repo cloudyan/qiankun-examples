@@ -24,11 +24,6 @@ export default [
     component: './Theme',
   },
   // {
-  //   name: 'Umi3',
-  //   path: '/umi3',
-  //   component: './Home',
-  // },
-  // {
   //   name: 'Webpack',
   //   path: '/webpack',
   //   component: './Home',

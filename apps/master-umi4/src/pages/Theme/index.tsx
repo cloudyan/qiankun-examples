@@ -4,16 +4,20 @@ import { MicroApp } from '@umijs/max';
 import { Button, Divider, Space } from 'antd';
 import styles from './index.module.less';
 
+// MicroApp 参数
 const defaultParams = {
+  // 子应用使用 history 路由，下面配置ok，
+  // 如果子应用时 hash 路由，
   base: '/',
-  url: '/theme',
+  url: '/#/theme',
+  autoSetLoading: true,
   settings: {
     sandbox: {
       experimentalStyleIsolation: true,
     },
   },
   //  自动捕获错误, 吊起 ant <Result />
-  // autoCaptureError: true
+  // autoCaptureError: true,
   //  自定义异常页面
   errorBoundary: (error: any) => <CustomErrorBoundary error={error} />,
 };
@@ -77,10 +81,10 @@ export default function Theme() {
       </div>
       <Divider />
       <h3>微应用(slave-umi4)</h3>
-      {/* <MicroApp name="slave-umi4" {...defaultParams} /> */}
+      <MicroApp name="slave-umi4" {...defaultParams} />
       <Divider />
       <h3>微应用(slave-umi3)</h3>
-      {/* <MicroApp name="slave-umi3" {...defaultParams} /> */}
+      <MicroApp name="slave-umi3" {...defaultParams} />
     </PageContainer>
   );
 }

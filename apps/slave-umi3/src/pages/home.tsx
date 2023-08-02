@@ -22,8 +22,8 @@ export default function One(props: any) {
     <>
       <h2>微应用 umi3</h2>
       <p><Button type="primary" onClick={handleClick}>按钮</Button> 红色主题</p>
-      {/* TODO: 主题在微应用内被覆盖了 */}
-      <p>页面 home</p>
+      {/* FIXED: 主题在微应用内被覆盖了, 已修复 */}
+      <p>页面 Home</p>
     </>
   )
 }

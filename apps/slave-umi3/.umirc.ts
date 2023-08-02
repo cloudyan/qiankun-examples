@@ -23,34 +23,15 @@ export default defineConfig({
     type: 'none',
   },
   routes: [
-    {
-      path: '/theme',
-      name: 'theme',
-      component: '@/pages/theme',
-    },
+    { path: '/theme', component: '@/pages/theme' },
     {
       path: '/',
       component: '@/layouts/index',
       routes: [
-        {
-          path: '/',
-          redirect: '/home'
-        },
-        {
-          path: '/home',
-          name: 'home',
-          component: '@/pages/home',
-        },
-        {
-          path: '/page1',
-          name: 'page1',
-          component: '@/pages/one',
-        },
-        {
-          path: '/page2',
-          name: 'page2',
-          component: '@/pages/two',
-        },
+        { path: '/', redirect: '/home' },
+        { path: '/home', component: '@/pages/home' },
+        { path: '/page1', component: '@/pages/one' },
+        { path: '/page2', component: '@/pages/two' },
         // {
         //   name: 'micro-3',
         //   path: '/sub-app-3',
@@ -68,7 +49,8 @@ export default defineConfig({
   mountElementId: 'micro-app-1',  //  容器ID
   // runtimeHistory: {}, // 开始运行时history功能
   history: {
-    type: 'hash'
+    // type: 'browser',
+    type: 'hash',
   },
-  base: '/',  //  umi微应用独立访问需要配置这个参数, 否则默认获取package.name作为base
+  base: '/',  // umi微应用独立访问需要配置这个参数, 否则默认获取package.name作为base
 });

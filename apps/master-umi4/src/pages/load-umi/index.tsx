@@ -2,7 +2,7 @@
 import { customFetch } from '@/utils/helper';
 import { PageContainer } from '@ant-design/pro-components';
 import { MicroApp } from '@umijs/max';
-import { Divider, Modal, Typography } from 'antd';
+import { App, Button, Divider, Modal, Typography } from 'antd';
 import {
   loadMicroApp,
   initGlobalState,
@@ -25,6 +25,7 @@ let microApp: any = null;
 // 同时使用 hash、history 两种路由
 const LoadMicroApp: React.FC = () => {
   const [replyMessage, setReplyMessage] = useState('');
+  const { modal } = App.useApp()
 
   const containerRef = useRef(null);
 
@@ -75,9 +76,17 @@ const LoadMicroApp: React.FC = () => {
     };
   }, [containerRef.current]);
 
+  const handleClick = () => {
+    modal.success({
+      title: '主应用',
+      content: '欢迎使用',
+    })
+  };
+
   return (
     <PageContainer ghost title={'挂载微应用'}>
-      <p>TODO: Link 样式相互干扰了</p>
+      <p><Button type="primary" onClick={handleClick}>按钮（主应用）</Button></p>
+      <p>TODO: umi3 应用，样式隔离不彻底，影响到主应用 和 slave-umi4 了</p>
       <Typography>
         <ul>
           <li>

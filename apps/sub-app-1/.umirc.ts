@@ -5,7 +5,7 @@ export default defineConfig({
     type: 'none',
   },
   theme: {
-    "primary-color": "#ED4192"
+    "@primary-color": "#ED4192"
   },
   mfsu: false,
   antd: {},

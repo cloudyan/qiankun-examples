@@ -6,7 +6,7 @@ export default defineConfig({
     slave: {},
   },
   history: {
-    // type: 'browser', // 默认
+    // type: 'browser',
     type: 'hash',
   },
   // base: 'slave-umi4',
@@ -27,12 +27,12 @@ export default defineConfig({
     // 精简配置
     // { path: '/home', component: 'index' },
     // { path: '/page1', component: 'page1' },
+    { path: '/theme', layout: false, component: '@/pages/theme' },
     {
       path: '/',
       component: '@/layouts',
       layout: false,
       routes: [
-        { path: '/theme', layout: false, component: '@/pages/theme' },
         { path: '/home', component: '@/pages/index' },
         { path: '/page1', component: '@/pages/page1' },
         { path: '/page2', component: '@/pages/page2' },

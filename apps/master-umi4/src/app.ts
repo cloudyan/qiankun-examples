@@ -81,6 +81,7 @@ export const qiankun = {
       credentials: true,
       container: '#slave-umi4',
       sandbox: {
+        strictStyleIsolation: true,
         experimentalStyleIsolation: true
       },
       // activeRule: getActiveRule('#/slave-umi4'),
@@ -108,6 +109,7 @@ export const qiankun = {
       },
       container: '#slave-umi3',
       sandbox: {
+        strictStyleIsolation: true,
         experimentalStyleIsolation: true
       },
     },
@@ -116,6 +118,10 @@ export const qiankun = {
       entry: '//localhost:5001',
       activeRule: '/sub-app-1',
       container: '#micro-app-1',
+      sandbox: {
+        strictStyleIsolation: true,
+        experimentalStyleIsolation: true
+      },
       props: {
         autoCaptureError: true,
         base: '/sub-app-1',
@@ -126,22 +132,22 @@ export const qiankun = {
       },
     },
     {
-        name: 'sub-app-2',
-        entry: '//localhost:5002',
-        activeRule: '/sub-app-2',
-        container: '#micro-app-2',
-        sandbox: {
-            experimentalStyleIsolation: true
-        },
+      name: 'sub-app-2',
+      entry: '//localhost:5002',
+      activeRule: '/sub-app-2',
+      container: '#micro-app-2',
+      sandbox: {
+        experimentalStyleIsolation: true
+      },
     },
     {
-        name: 'sub-app-3',
-        entry: '//localhost:5003',
-        activeRule: '/sub-app-3',
-        container: '#micro-app-3',
-        sandbox: {
-            experimentalStyleIsolation: true
-        },
+      name: 'sub-app-3',
+      entry: '//localhost:5003',
+      activeRule: '/sub-app-3',
+      container: '#micro-app-3',
+      sandbox: {
+        experimentalStyleIsolation: true
+      },
     },
   ],
   // 路由模式引入子应用

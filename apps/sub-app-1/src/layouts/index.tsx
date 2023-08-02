@@ -1,4 +1,4 @@
-import {Button, Descriptions, Layout, Menu, Typography} from 'antd';
+import {Button, Descriptions, Layout, Menu, Typography, Modal} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'umi';
 import './index.less'
@@ -44,6 +44,13 @@ export default function BasicLayout(props: React.PropsWithChildren<any>) {
     }
   }, [])
 
+  const handleClick = () => {
+    Modal.success({
+      title: `微应用`,
+      content: 'sub-app-1',
+    })
+  }
+
   return (
     <Layout className="site-layout-background" style={{height: '100vh'}}>
       <Sider className="site-layout-background" width={200}>
@@ -62,7 +69,7 @@ export default function BasicLayout(props: React.PropsWithChildren<any>) {
       <Content style={{padding: '24px', minHeight: 280, background: '#fff'}}>
 
         <Title level={4}>当前微应用</Title>
-        <Button type="primary">按钮</Button>
+        <p><Button type="primary" onClick={handleClick}>按钮</Button></p>
         <Descriptions bordered column={1} style={{marginBottom: 16}}>
           <Descriptions.Item label={'名称'}>sub-app-1</Descriptions.Item>
           <Descriptions.Item label={'框架'}>React</Descriptions.Item>
