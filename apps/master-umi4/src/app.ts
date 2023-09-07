@@ -78,8 +78,8 @@ export const qiankun = {
       name: 'slave-umi4',
       entry: '//localhost:6001', // your slave app address
       activeRule: '/slave-umi4',
-      credentials: true,
       container: '#slave-umi4',
+      credentials: true,
       sandbox: {
         strictStyleIsolation: true,
         experimentalStyleIsolation: true
@@ -104,6 +104,7 @@ export const qiankun = {
       name: 'slave-umi3',
       entry: '//localhost:6002',
       activeRule: '/slave-umi3',
+      credentials: true,
       props: {
         autoCaptureError: true,
       },
@@ -118,6 +119,7 @@ export const qiankun = {
       entry: '//localhost:5001',
       activeRule: '/sub-app-1',
       container: '#micro-app-1',
+      credentials: true,
       sandbox: {
         strictStyleIsolation: true,
         experimentalStyleIsolation: true
@@ -136,6 +138,7 @@ export const qiankun = {
       entry: '//localhost:5002',
       activeRule: '/sub-app-2',
       container: '#micro-app-2',
+      credentials: true,
       sandbox: {
         experimentalStyleIsolation: true
       },
@@ -145,6 +148,7 @@ export const qiankun = {
       entry: '//localhost:5003',
       activeRule: '/sub-app-3',
       container: '#micro-app-3',
+      credentials: true,
       sandbox: {
         experimentalStyleIsolation: true
       },
