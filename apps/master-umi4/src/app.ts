@@ -79,7 +79,7 @@ export const qiankun = {
       entry: '//localhost:6001', // your slave app address
       activeRule: '/slave-umi4',
       container: '#slave-umi4',
-      credentials: true,
+      credentials: true, // 影响 js 跨域资源加载了
       sandbox: {
         strictStyleIsolation: true,
         experimentalStyleIsolation: true
@@ -104,7 +104,7 @@ export const qiankun = {
       name: 'slave-umi3',
       entry: '//localhost:6002',
       activeRule: '/slave-umi3',
-      credentials: true,
+      // credentials: true, // umi3 中这个配置影响 js 跨域资源加载了
       props: {
         autoCaptureError: true,
       },
