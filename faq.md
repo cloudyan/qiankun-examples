@@ -38,6 +38,7 @@
     - [场景 2：主应用和微应用部署在不同的服务器，使用 Nginx 代理访问](#场景-2主应用和微应用部署在不同的服务器使用-nginx-代理访问)
     - [结论及问题分析](#结论及问题分析)
   - [6. 引入子应用方式](#6-引入子应用方式)
+    - [动态注册子应用](#动态注册子应用)
   - [7. 运行时的 publicPath 和构建时的 publicPath](#7-运行时的-publicpath-和构建时的-publicpath)
     - [微前端是否会影响现有的服务](#微前端是否会影响现有的服务)
     - [关于 .env.local](#关于-envlocal)
@@ -142,6 +143,12 @@ registerMicroApps([
 - 路由模式引入子应用，2,3 方法会导致主应用重新加载（刷新）
 - `<MicroApp />` 组件模式引入子应用，则可实现主应用无刷新跳转
 
+这里存在一些问题，
+
+1. 没有 `<MicroAppLink />` 标签可用时，怎么办？
+   1. 可使用 history.pushState 能实现无刷新跨应用跳转
+   2. 需要使用 `<MicroApp />` 组件引入，否则主应用 history 路由会改变子应用 hash 路由变为 history 路由
+2. a 标签跳转，有些情况会导致跳转刷新主应用
 
 参考：
 
@@ -192,7 +199,7 @@ registerMicroApps([
 
 ### 结论及问题分析
 
-目前现状是：子应用部署在二级目录，已在线提供服务，存在大量采用引用路径
+目前现状是：子应用部署在二级目录，已在线提供服务，存在大量配置包含页面路径
 
 期望：
 
@@ -211,7 +218,7 @@ registerMicroApps([
    2. 初期，这里涉及到批量刷权限配置
    3. 扩展思考：权限跟菜单绑定？路由绑定？是否有更好的设计？
 3. 主应用在根目录，影响的不仅仅 UI 应用，还有后端等服务
-   1. 什么时候响应为根路径的服务
+   1. 什么时候响应为根路径的服务（直接访问根路径或前端微服务的路径时）
    2. 可以开白名单指定特点路径（针对已开启微服务的子应用）响应为根目录服务
 
 能否更精简，根据请求特定标识区分真实服务与微服务？
@@ -233,6 +240,79 @@ registerMicroApps([
     activeRule: '/slave-xxxui',
   },
 ],
+```
+
+### 动态注册子应用
+
+配置运行时动态注册子应用，方案如下
+
+src/app.ts
+
+```js
+// 数据格式
+// const apps = [
+//   {
+//     name: 'magiclampui',
+//     entry: '//localhost:8001',
+//     container: '#root',
+//     activeRule: '/magiclampui',
+//   },
+//   {
+//     name: 'creditmgrui',
+//     entry: '//localhost:8002',
+//     container: '#root',
+//     activeRule: '/creditmgrui',
+//   },
+// ];
+
+
+// src/app.ts
+export const qiankun = fetch('/api/micro-config')
+  .then((res) => {
+    return res.json();
+  })
+  .then(({ apps }) => {
+    window.__microApps__ = apps;
+    return Promise.resolve({
+      // 注册子应用信息
+      apps,
+      lifeCycles: {
+        afterMount: (props) => {
+          console.log(props);
+        },
+      },
+    });
+  });
+```
+
+动态渲染子应用
+
+```js
+// @/components/micro-client
+import { MicroApp, useLocation, Outlet } from 'umi';
+
+export default function MicroClient() {
+  const location  = useLocation();
+  console.log(location)
+
+  const microAppName = location.pathname.replace(/\//g, '');
+  const isMicroClient = (window.__microApps__ || []).map(app => app.name).includes(microAppName)
+
+  console.log('isMicroClient', isMicroClient, microAppName);
+  return (<div className="microapp-wrapper">
+    {isMicroClient ? <MicroApp name={microAppName} autoSetLoading /> : <Outlet />}
+  </div>);
+};
+
+// 使用方式
+// src/App.jsx
+export default function App () => {
+  return (
+    <Layout {...layoutData} menus={menus} userInfo={userInfo} location={location}>
+      {hasAccess ? <MicroClient /> : <Forbbiden />}
+    </Layout>
+  )
+}
 ```
 
 ## 7. 运行时的 publicPath 和构建时的 publicPath
@@ -305,6 +385,10 @@ module.exports = {
 ### 微前端是否会影响现有的服务
 
 1. 灰度发布方案，不受影响（需要确保 cookie 透传）
+
+只需要确保 index.html 入口文件透传 cookie 即可
+
+> 注: 微环境的部署方案不规范(多了一层微环境资源路径)，导致了资源也需要透传 cookie，这不是很合理
 
 ### 关于 .env.local
 

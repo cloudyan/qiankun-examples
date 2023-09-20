@@ -29,9 +29,9 @@ export default function Page1() {
           <h3>hash 路由测试</h3>
           <p>MicroApp 组件模式引入子应用，跳转没问题</p>
           <ol>
-            <li><p><a href={getHashUrl('/page2')}>Go 页面2(a 标签)</a></p></li>
-            <li><p><Button type="primary" onClick={() => window.location.href = getHashUrl('/page2')}>Go 页面2(location.href)</Button></p></li>
-            <li><p><Link to={getHashUrl('/page2', true)}>Go 页面2(Link 组件)</Link></p></li>
+            <li><p><a href={getHashUrl('/page2')}>Go 页面2(a 标签)</a> ✅</p></li>
+            <li><p><Button type="primary" onClick={() => window.location.href = getHashUrl('/page2')}>Go 页面2(location.href)</Button> ✅</p></li>
+            <li><p><Link to={getHashUrl('/page2', true)}>Go 页面2(Link 组件)</Link> ✅</p></li>
           </ol>
         </>
         ) : (
@@ -39,9 +39,9 @@ export default function Page1() {
             <h3>history 路由测试</h3>
             <p>路由模式引入子应用，a 或 location.href 跳转会有问题</p>
             <ol>
-              <li><p><a href={getHistoryUrl('/page2')}>Go 页面2(a 标签)</a></p></li>
-              <li><p><Button type="primary" onClick={() => window.location.href = getHistoryUrl('/page2')}>Go 页面2(location.href)</Button></p></li>
-              <li><p><Link to={getHistoryUrl('/page2', true)}>Go 页面2(Link 组件)</Link></p></li>
+              <li><p><a href={getHistoryUrl('/page2')}>Go 页面2(a 标签)</a> ❌</p></li>
+              <li><p><Button type="primary" onClick={() => window.location.href = getHistoryUrl('/page2')}>Go 页面2(location.href)</Button> ❌</p></li>
+              <li><p><Link to={getHistoryUrl('/page2', true)}>Go 页面2(Link 组件)</Link> ✅</p></li>
             </ol>
 
             <h3>疑问</h3>

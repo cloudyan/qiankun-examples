@@ -19,6 +19,9 @@ export default defineConfig({
       },
     },
   },
+  // mock: {
+  //   include: ['mock/*.ts'],
+  // },
   access: {},
   model: {},
   initialState: {},
@@ -47,6 +50,11 @@ export default defineConfig({
     slave: {},
   },
   base: '/',
+  // TIP: 主应用需要使用 history 路由，不能使用 hash，否则影响第一层路径
+  history: {
+    type: 'browser',
+    // type: 'hash',
+  },
   npmClient: 'pnpm',
   mfsu: false,
 });

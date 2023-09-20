@@ -52,5 +52,10 @@ export default defineConfig({
     // type: 'browser',
     type: 'hash',
   },
-  base: '/',  // umi微应用独立访问需要配置这个参数, 否则默认获取package.name作为base
+  // TODO: 这里微应用怎么配置，测试时，这里会干扰 hash 路由
+  // 错误 /slave-umi3/#/slave-umi3/page1
+  // 正确 /slave-umi3/#/page1
+  // umi微应用独立访问需要配置这个参数, 否则默认获取package.name作为base
+  // base: '/slave-umi3/',
+  base: '/',
 });

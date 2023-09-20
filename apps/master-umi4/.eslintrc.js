@@ -1,3 +1,6 @@
 module.exports = {
-  // extends: require.resolve('@umijs/max/eslint'),
+  // "parserOptions": {
+  //   "parser": "babel-eslint",
+  // }
+  extends: require.resolve('@umijs/max/eslint'),
 };

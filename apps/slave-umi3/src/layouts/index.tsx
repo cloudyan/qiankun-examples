@@ -12,6 +12,7 @@ export default function IndexPage(props: any) {
 
   return (
     <div className="navs">
+      <h3>salve-umi3</h3>
       <ul>
         <li><Link to="/home">Home</Link></li>
         <li><Link to="/page1">Page1</Link></li>

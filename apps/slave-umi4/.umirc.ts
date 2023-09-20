@@ -9,7 +9,7 @@ export default defineConfig({
     // type: 'browser',
     type: 'hash',
   },
-  // base: 'slave-umi4',
+  // base: '/slave-umi4/',
   hash: true,
   antd: {
     configProvider: {

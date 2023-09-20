@@ -5,6 +5,7 @@ import './index.less';
 export default function Layout() {
   return (
     <div className="navs">
+      <h3>salve-umi4</h3>
       <ul>
         <li><Link to="/home">Home</Link></li>
         <li><Link to="/page1">Page1</Link></li>

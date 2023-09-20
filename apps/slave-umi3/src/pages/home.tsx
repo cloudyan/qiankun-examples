@@ -14,14 +14,14 @@ export default function One(props: any) {
   const handleClick = () => {
     Modal.success({
       title: `当前应用`,
-      content: 'hello',
+      content: 'hello slave-umi3',
     })
   }
 
   return (
     <>
       <h2>微应用 umi3</h2>
-      <p><Button type="primary" onClick={handleClick}>按钮</Button> 红色主题</p>
+      <p><Button type="primary" onClick={handleClick}>弹框</Button> 红色主题</p>
       {/* FIXED: 主题在微应用内被覆盖了, 已修复 */}
       <p>页面 Home</p>
     </>
