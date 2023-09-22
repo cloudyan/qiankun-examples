@@ -11,20 +11,20 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
-    "@ant-design/pro-components": "^2.4.4",
-    "@umijs/max": "^4.0.72",
-    "antd": "^5.4.0",
+    "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.23",
+    "@umijs/max": "^4.0.81",
+    "antd": "^5.9.2",
     "path-to-regexp": "^6.2.1",
-    "qiankun": "^2.10.11"
+    "qiankun": "^2.10.13"
   },
   "devDependencies": {
-    "@types/react": "^18.0.33",
-    "@types/react-dom": "^18.0.11",
-    "lint-staged": "^13.2.0",
-    "prettier": "^2.8.7",
-    "prettier-plugin-organize-imports": "^3.2.2",
-    "prettier-plugin-packagejson": "^2.4.3",
-    "typescript": "^5.0.3"
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
+    "lint-staged": "^13.3.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-organize-imports": "^3.2.3",
+    "prettier-plugin-packagejson": "^2.4.5",
+    "typescript": "^5.2.2"
   }
 }

@@ -9,24 +9,24 @@
     "test:coverage": "umi-test --coverage"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.7.0",
-    "@umijs/plugin-antd": "^0.15.0",
+    "@ant-design/icons": "^4.8.1",
+    "@umijs/plugin-antd": "^0.15.2",
     "@umijs/plugin-initial-state": "^2.4.0",
     "@umijs/plugin-model": "^2.6.2",
-    "antd": "^4.22.3",
+    "antd": "^4.24.14",
     "lodash": "^4.17.21",
     "path-to-regexp": "^6.2.1",
-    "qiankun": "^2.7.4",
-    "react": "17.x",
-    "react-dom": "17.x",
-    "umi": "3.x"
+    "qiankun": "^2.10.13",
+    "react": "~17.0.2",
+    "react-dom": "~17.0.2",
+    "umi": "~3.5.41"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@umijs/plugin-qiankun": "^2.39.2",
-    "@umijs/test": "^3.5.32",
-    "prettier": "^2.2.0",
-    "typescript": "^4.1.2"
+    "@types/react": "^17.0.65",
+    "@types/react-dom": "^17.0.20",
+    "@umijs/plugin-qiankun": "^2.43.3",
+    "@umijs/test": "^3.5.41",
+    "prettier": "^2.8.8",
+    "typescript": "^4.9.5"
   }
 }

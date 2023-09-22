@@ -22,6 +22,9 @@ let localApps: Apps[] = [
       strictStyleIsolation: true,
       experimentalStyleIsolation: true
     },
+    props: {
+      autoCaptureError: true,
+    },
   },
   {
     name: 'slave-umi3',
@@ -40,6 +43,7 @@ let localApps: Apps[] = [
 ];
 
 // 动态注册路由，此方式主应用 history 路由会影响子应用 hash 路由
+// 这里内部使用 loadMicroApp 加载的子应用
 const routes = [
   {
     name: 'slave-umi4',
@@ -58,6 +62,7 @@ const routes = [
     microAppProps: {
       autoCaptureError: true,
     },
+
   },
 ];
 

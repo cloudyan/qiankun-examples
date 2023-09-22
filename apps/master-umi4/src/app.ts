@@ -95,6 +95,7 @@ export const qiankun = fetch('/api/micro-config')
       // 注册子应用信息
       apps,
       // routes,
+      // masterHistoryType: 'hash',
       // 完整生命周期钩子请看 https://qiankun.umijs.org/zh/api/#registermicroapps-apps-lifecycles
       lifeCycles: {
         afterMount: (props) => {
