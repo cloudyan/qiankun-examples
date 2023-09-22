@@ -13,6 +13,7 @@ export default [
         path: '/home',
         component: './Home',
       },
+
       // {
       //   name: '权限演示',
       //   path: '/access',
@@ -23,19 +24,26 @@ export default [
       //   path: '/table',
       //   component: './Table',
       // },
-      {
-        name: '主题',
-        path: '/theme',
-        component: './Theme',
-      },
+      // {
+      //   name: '主题',
+      //   path: '/theme',
+      //   component: './Theme',
+      // },
 
       // 路由
+      // {
+      //   path: '/slave-umi4/*',
+      //   component: './app',
+      // },
+      // {
+      //   path: '/slave-umi3/*',
+      //   component: './app',
+      // },
+
+      // 子应用自适配路由
       {
-        path: '/slave-umi4/*',
-        component: './app',
-      },
-      {
-        path: '/slave-umi3/*',
+        path: '/*',
+        layout: false,
         component: './app',
       },
 
@@ -161,4 +169,5 @@ export default [
     path: '/404',
     component: './Exception404',
   },
+
 ]

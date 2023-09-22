@@ -1,14 +1,25 @@
 import { history } from '@umijs/max';
 import { Button, Result } from 'antd';
 
-export default function CustomErrorBoundary(props: { error?: any }) {
+interface ErrorProps {
+  info: ErrorInfo;
+}
+
+interface ErrorInfo {
+  status: number;
+  title?: string;
+  subTitle?: string;
+}
+
+export default function CustomErrorBoundary(props: ErrorProps) {
   const handleClick = () => {
     history.push('/home');
   };
 
-  let status: any = 500,
-    title = '500',
-    subTitle = 'Sorry, something went wrong.';
+  const info = props.info || {};
+  let status: any = info.status || 500
+  let title = info.title || '500'
+  let subTitle = info.subTitle || 'Sorry, something went wrong.';
 
   return (
     <Result

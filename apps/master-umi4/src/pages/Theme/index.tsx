@@ -12,10 +12,10 @@ const defaultParams = {
   url: '/#/theme',
   autoSetLoading: true,
   settings: {
-    // sandbox: {
-    //   strictStyleIsolation: true,
-    //   experimentalStyleIsolation: true,
-    // },
+    sandbox: {
+      strictStyleIsolation: true,
+      experimentalStyleIsolation: true,
+    },
   },
   //  自动捕获错误, 吊起 ant <Result />
   // autoCaptureError: true,

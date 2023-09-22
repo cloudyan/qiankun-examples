@@ -83,16 +83,18 @@ const getActiveRule = (hash: string) => {
   }
 }
 
-// 动态路由
+// 动态注册子应用
 export const qiankun = fetch('/api/micro-config')
   .then((res) => {
     return res.json();
   })
-  .then(({ apps }) => {
+  .then(({ apps = [], routes = [] }) => {
     window.__microApps__ = apps;
+    window.__microRoutes__ = routes;
     return Promise.resolve({
       // 注册子应用信息
       apps,
+      // routes,
       // 完整生命周期钩子请看 https://qiankun.umijs.org/zh/api/#registermicroapps-apps-lifecycles
       lifeCycles: {
         afterMount: (props) => {
