@@ -16,8 +16,8 @@ export default function Layout() {
           <ul>
             <li><Link to="/home">home</Link></li>
             <li><Link to="/theme">theme</Link></li>
-            <li><Link to="/slave-umi4/#/page1">umi4_page1</Link></li>
-            <li><Link to="/slave-umi3/#/page2">umi3_page2</Link></li>
+            <li><Link to="/slave-umi4/#/page1">Link umi4_page1</Link></li>
+            <li><Link to="/slave-umi3/#/page2">Link umi3_page2</Link></li>
           </ul>
           <p>样式被子应用覆盖</p>
         </div>

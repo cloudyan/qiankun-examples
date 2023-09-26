@@ -44,6 +44,7 @@
     - [关于 .env.local](#关于-envlocal)
     - [样式隔离](#样式隔离)
     - [如何独立运行微应用？](#如何独立运行微应用)
+    - [umi qiankun 插件都做了什么？](#umi-qiankun-插件都做了什么)
   - [扩展阅读](#扩展阅读)
 
 
@@ -568,6 +569,29 @@ export const mount = async () => render();
   - 这里 [umi-plugin-antd-style](https://github.com/xiaohuoni/umi-plugin-antd-style)，有个在线 [demo](https://codesandbox.io/p/github/xiaohuoni/plugin-antd-style-demo/main?file=/config/config.ts)
 - [Ant Design Style](https://ant-design.github.io/antd-style/)
 - [Dumi Theme](https://dumi-theme-antd-style.arvinx.app/)
+
+
+### umi qiankun 插件都做了什么？
+
+了解这个，有利于了解背后运行机制，发生了什么，为什么？
+
+- umi/packages/plugins/src/qiankun/master.ts
+- umi/packages/plugins/src/qiankun/slave.ts
+- 插件 umi/packages/plugins/libs/qiankun
+- qiankun 的实现机制、隔离机制
+
+问题
+
+1. qiankun 插件对主应用、子应用做了什么？
+2. 绑定路由模式，为什么主应用 history 路由会影响子应用路由？
+3. MicroApp 的实现机制
+4. MicroAppLink 的实现机制
+5. 实现对 A 标签跳转做拦截，当为子应用路由时，改为 history.pushState
+
+原因分析
+
+
+
 
 ## 扩展阅读
 

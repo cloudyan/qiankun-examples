@@ -7,6 +7,7 @@
     "preinstall": "npx only-allow pnpm",
     "dev:all": "lerna run dev --concurrency=10 --ignore=docs",
     "dev": "lerna run dev --scope=@example/master-umi4 --scope=@example/slave-umi4 --scope=@example/slave-umi3 ",
+    "client": "lerna run dev --scope=@example/slave-umi4 --scope=@example/slave-umi3 ",
     "build": "lerna run build --ignore=docs",
     "test": "lerna run test"
   },
