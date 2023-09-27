@@ -588,6 +588,10 @@ export const mount = async () => render();
 4. MicroAppLink 的实现机制
 5. 实现对 A 标签跳转做拦截，当为子应用路由时，改为 history.pushState
 
+如果基于 Umi 开发且引入了 [qiankun 插件](https://github.com/umijs/umi/blob/master/packages/plugins/src/qiankun.ts)。那么 qiankun 微前端插件会自动在 umi 项目中创建好 Qiankun 子应用所需的生命周期钩子和方法。
+
+如果没有，可以按照[此教程](https://qiankun.umijs.org/zh/guide/getting-started#%E5%BE%AE%E5%BA%94%E7%94%A8)进行配置。
+
 原因分析
 
 
