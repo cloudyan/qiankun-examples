@@ -10,6 +10,7 @@ export default function Page1() {
   }
 
   const goHistoryUrl = (path: string, bool: boolean = false) => {
+    console.log('goHistoryUrl', getHistoryUrl(path, bool))
     history.pushState({}, '', getHistoryUrl(path, bool))
   }
 
@@ -21,8 +22,10 @@ export default function Page1() {
       {/* <p><MicroAppLink name="/" to="/purehtml"><button>go Purehtml</button></MicroAppLink></p> */}
 
       <p><Button type="primary" onClick={() => goHistoryUrl('/slave-umi3/#/page2', true)}>umi3_page2(history.pushState)</Button></p>
+      <p><Button type="primary" onClick={() => goHistoryUrl('/slave-umi4/#/page1', true)}>umi4_page1(history.pushState)</Button></p>
 
       {/* <p><MicroAppLink isMaster to="/purehtml"><Button type="primary">go Purehtml</Button></MicroAppLink> ✅</p> */}
+      <p><MicroAppLink isMaster to="/home"><Button type="primary">go MasterHome</Button></MicroAppLink> ✅</p>
       <p><MicroAppLink isMaster to="/slave-umi3/#/page2"><Button type="primary">MicroAppLink umi3_page1</Button></MicroAppLink> ✅</p>
       {/* 跨子应用跳转，都应该用上面这种，下面的用法有异常 */}
       {/* <p><MicroAppLink name="slave-umi3" to="/slave-umi3/#/page1"><Button type="primary">MicroAppLink umi3_page1</Button></MicroAppLink> ✅⛔️ 路由绑定引入子应用时异常, 使用 MircoApp 引入子应用正常</p> */}
