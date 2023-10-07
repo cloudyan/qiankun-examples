@@ -1,6 +1,7 @@
 # 用法
 
 - https://qiankun.umijs.org/zh/guide/getting-started#%E5%BE%AE%E5%BA%94%E7%94%A8
+- 推荐 [qiankun 原理](https://juejin.cn/post/7202246519080304697)
 
 ## 主应用
 
@@ -120,9 +121,21 @@ module.exports = {
 
 要把微应用打包成 umd 库格式，为什么？
 
-qiankun 架构下的子应用通过webpack 的 umd 输出格式来做，让父应用在执行子应用的 js 资源时可以通过 eval，将 window 绑定到一个 Proxy 对象上，以此来防止污染全局变量，方便对脚本的 window 相关操作做劫持处理，达到子应用之间的脚本隔离。
+qiankun 为什么需要将子应用输出为 umd ?
 
-- https://juejin.cn/post/6893376571978022926
+> qiankun 架构下的子应用通过webpack 的 umd 输出格式来做，让父应用在执行子应用的 js 资源时可以通过 eval，将 window 绑定到一个 Proxy 对象上，以此来防止污染全局变量，方便对脚本的 window 相关操作做劫持处理，达到子应用之间的脚本隔离。
+>
+> https://juejin.cn/post/6893376571978022926
+
+## single-spa 入门
+
+qiankun 是基于 [single-spa](https://github.com/single-spa/single-spa) 实现的，因此我们有必要了解 single-spa，它也是一个微前端框架。
+
+single-spa 被加载的子应用中，其加载路径对应的资源必须是一个js文件，js文件中必须通过export导出三个函数：bootstrap、mount、unmount，这三个函数会作为生命周期钩子函数在 singleSpa 获取子应用资源后被依次执行。
+
+当我们的子应用使用了vue或者react时，我们可以分别使用single-spa-vue和single-spa-react这两个库去生成上述三个函数
+
+### 站在single-spa的肩膀上，qiankun做了什么？
 
 `qiankun` 与 `single-spa` 最大的区别是：`single-spa` 提供的注册子应用 API `registerApplication` 中，请求的子应用资源类型是 `js`。而 `qiankun` 提供的注册子应用 API `registerMicroApps` 中，请求的子应用资源是 `html` 文件，即子应用打包后的入口页面
 
@@ -145,7 +158,7 @@ registerApplication({
         render()
         mount()
       ],
-      unmount: ,
+      unmount,
     };
   },
   activeWhen: activeRule,
@@ -153,12 +166,14 @@ registerApplication({
 });
 ```
 
+详细解析
+
 1. 加载和解析html资源
    1. `qiankun` 会调用 `import-html-entry` 这个第三方库去加载和处理 `html` 资源。`import-html-entry` 会在获取 `html` 页面后会通过正则表达式解析并提取其中的 `link` 元素和 `script` 元素。
    2. 经过解析后会返回 `template`(html页面)、`scripts`(script外链或脚本内容列表)、`entry`(js入口文件链接)、`styles`(links外链列表)四个值
-      1. template
-         1. 对内联脚本 和 资源类型为 `javascript` 的`script`取替成`<!-- xxx replaced by import-html-entry -->`标志位
-         2. 对资源类型为`stylesheet`的`link`取替成`<!-- xxx replaced by import-html-entry -->`标志位
+      1. `template`
+         1. 对内联脚本 和 资源类型为 `javascript` 的`script`取替成`<!-- xxx.js replaced by import-html-entry -->`标志位
+         2. 对资源类型为`stylesheet`的`link`取替成`<!-- xxx.css replaced by import-html-entry -->`标志位
       2. `scripts` 集成所有 内联脚本 和 资源类型为`javascript`的`script`外链
       3. entry: 如果存在带entry的script元素，则entry为script元素的外链或内联脚本。否则为scripts最后的元素
       4. styles: 集成所有 资源类型为stylesheet的link外链
@@ -168,14 +183,34 @@ registerApplication({
 3. 生成 js沙箱
    1. qiankun会根据用户设置的sandbox属性来生成 js沙箱，js沙箱 用于隔离应用间的window环境，防止子应用在执行代码期间影响了其他应用设置在window上的属性。
    2. qiankun内置的沙箱有三种：ProxySandbox、LegacySandbox、SnapshotSandbox，使用场景如下所示：
-      1. ProxySandbox：sandbox没有设置或设置为true，且浏览器环境支持ES6-Proxy类
-      2. LegacySandbox：sandbox设置为对象，且浏览器环境支持ES6-Proxy类
-      3. SnapshotSandbox：浏览器环境不支持ES6-Proxy类
+      1. `ProxySandbox`：sandbox没有设置或设置为true，且浏览器环境支持ES6-Proxy类
+      2. `LegacySandbox`：sandbox设置为对象，且浏览器环境支持ES6-Proxy类
+      3. `SnapshotSandbox`：浏览器环境不支持ES6-Proxy类
 4. 加载外部脚本资源（js），且进行包装、执行
    1. 开始对scripts列表中的外链进行资源请求，获取到的js代码
    2. 然后对所有请求获取的js代码和内联脚本都进行包装以修改其作用域上的window
 5. 从入口文件里获取生命周期钩子函数：bootstrap、mount、unmount，然后交给single-spa去调用执行
    1. 会把beforeLoad和beforeMount等周期函数的执行逻辑安插在registerApplication的app返回的声明周期函数中。
+
+```js
+// html 解析
+// 对 内联脚本 和 资源类型为javascript 的script取替成<!-- xxx replaced by import-html-entry -->标志位
+// 对资源类型为stylesheet的link取替成<!-- xxx replaced by import-html-entry -->标志位
+template = ` <html lang="en"> <head> <meta charset="utf-8" /> <link rel="icon" href="/favicon.ico" /> <title>React App</title> <!-- link http://xxx/react-app/static/css/main.css replaced by import-html-entry --> <style type="text/css"> .contaier { width: auto; } </style> </head> <body> <div id="root"></div> <!-- inline scripts replaced by import-html-entry --> <!-- script http://xxx/react-app/static/js/chunk1.js replaced by import-html-entry --> <!-- script http://xxx/react-app/static/js/main.js replaced by import-html-entry --> </body> </html> `;
+
+// 集成所有 内联脚本 和 资源类型为javascript的script外链
+scripts = [
+  "\x3Cscript>\n function(){}\n \x3C/script>",
+  "http://xxx/react-app/static/js/chunk1.js",
+  "http://xxx/react-app/static/js/main.js",
+];
+
+// 如果存在带entry的script元素，则entry为script元素的外链或内联脚本。否则为scripts最后的元素
+entry = "http://xxxx/react-app/static/js/main.js";
+
+// 集成所有 资源类型为stylesheet的link外链
+styles = ["http://xxx/react-app/static/css/main.css"];
+```
 
 ```js
 // 简化版的 ProxySandbox 源码
@@ -282,7 +317,7 @@ fn1();
 
 其中window.proxy是上一步中生成的js沙箱，通过bind传入到匿名函数的作用域里，然后再通过with语句把window的指向从全局对象Window切换到该js沙箱。从而让子应用的js代码执行过程中，调用的window其实是一个目标对象为fakeWindow的Proxy实例，从而完成了应用间window的隔离。
 
-最终上面包装后的代码会用eval执行。
+最终上面包装后的代码会用 `eval` 执行。
 
 qiankun 要求 webpack 子项目输出 library umd 包
 
@@ -292,6 +327,85 @@ qiankun 要求 webpack 子项目输出 library umd 包
 
 因此我们在入口文件在上一步骤中包装且eval执行后，qiankun 会通过等同于`Object.keys(window).pop()`获取到最新插入的属性`"react-ts-app-main"`，然后通过`window["react-ts-app-main"]`拿到这些生命周期钩子函数。最终这些生命周期钩子函数用作single-spa的`registerApplication`的app的返回数据里。从而完成了从解析html到把入口文件中的生命周期钩子函数交给single-spa调用的整个过程。
 
+## 隔离的原理
+
+子应用和基座的隔离主要有两点：
+
+1. 样式隔离
+2. js 隔离
+
+### 样式隔离
+
+要想做到子应用和基座之间的样式不会相互干扰，首先要做的就是样式隔离。
+
+qiankun 提供了 3 种模式来实现不同效果的样式隔离：
+
+1. **动态载入 CSS(默认)** - 代码中的配置为 sandbox = true ，这种模式的做法是直接将子应用的样式（css 列表）全部直接加载到子应用挂载的 DOM 节点内，这样在卸载子应用的时候，移除该 DOM 节点，就可以自动去掉子应用使用的 css。但这种模式可能会导致子应用内的样式影响到基座。（例如子应用内和基座对同一个 id 的 DOM 元素配置了样式）
+2. **Shadow DOM 样式隔离** - 代码中的配置为 sandbox.strictStyleIsolation = true，这种模式是使用浏览器原生的 Shadow DOM(mode = open) 实现，从而达到 Shadow Root 下的 css 无法影响到外部。参考链接：[Shadow DOM](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_shadow_DOM)
+3. **Scoped CSS 样式隔离** - 代码中的配置为 sandbox.experimentalStyleIsolation = true。这种模式通过为 css 选择器添加 [data-...] 限制，从而实现样式的隔离，这种模式可以做到应用内的样式不会影响到外部。
+
+```js
+// Shadow DOM 的开关
+let shadow = elementRef.attachShadow({ mode: "open" });
+let shadow = elementRef.attachShadow({ mode: "closed" });
+```
+
+第 2，3 种方案能够做到完全隔离，第一种会影响基座，但为什么 qiankun 默认的是第 1 种方案呢？
+
+因为「模态框」、「引导框」这样的组件，需要挂载到 body 上。
+
+所以综合权衡之下，qiankun 默认使用方案 1，通过人为约束子应用样式和基座区分开，也可以做到既满足弹框遮罩的场景，又实现基座和子应用样式互不影响。
+
+### js 隔离
+
+js 隔离的核心是在基座和子应用中使用不同的上下文 (global env)，从而达成基座和子应用之间 js 运行互不影响。
+
+> 简单来说，就是给子应用单独的 window，避免对基座的 window 造成污染。
+
+qiankun 在 js 隔离上，同样提供了 3 种方案，分别是：
+
+1. `LegacySandbox` - 传统 js 沙箱，目前已弃用，需要配置 `sandbox.loose = true` 开启。此沙箱使用 Proxy 代理子应用对 window 的操作，将子应用对 window 的操作同步到全局 window 上，造成侵入。但同时会将期间对 window 的新增、删除、修改操作记录到沙箱变量中，在子应用关闭时销毁，再根据记录将 window 还原到初始状态。
+2. `ProxySandbox` - 代理 js 沙箱，非 IE 浏览器默认使用此沙箱。和 `LegacySandbox` 同样基于 Proxy 代理子应用对 window 的操作，和 `LegacySandbox` 不同的是，`ProxySandbox` 会创建一个虚拟的 window 对象提供给子应用使用，哪怕是在运行时，子应用也不会侵入对 window，实现完全的隔离。
+3. `SnapshotSandbox` - 快照 js 沙箱，IE 浏览器默认使用此沙箱。因为 IE 不支持 Proxy。此沙箱的原理是在子应用启动时，创建基座 window 的快照，存到一个变量中，子应用的 window 操作实质上是对这个变量操作。`SnapshotSandbox` 同样会将子应用运行期间的修改存储至 `modifyPropsMap` 中，以便在子应用创建和销毁时还原。
+
+> 注：样式隔离、JS 隔离都在会子应用 mount 前，bootstrap 时处理。
+
+当然除了这些基本的隔离处理之外，qiankun 还提供了对 window 的各种监听和定时器的 Hook，保证子应用完整的销毁。
+
+## 通信、路由的原理
+
+相比于上文子应用隔离的原理而言，通信和路由更加偏向于应用，qiankun 在这两方面的设计基于微前端理念中的「低耦合度」。技术实现则是直接基于 single-spa 的基础，做了一点简单的扩展。
+
+### 通信的原理
+
+在通信部分，qiankun 提供了全局的 state 供子应用和基座使用。同时提供了 2 个函数供子应用操作使用，分别是：
+
+1. `onGlobalStateChange: (callback: OnGlobalStateChangeCallback, fireImmediately?: boolean) => void` 在当前应用监听全局状态，有变更触发 callback，fireImmediately = true 立即触发 callback
+2. `setGlobalState: (state: Record<string, any>) => boolean` 按一级属性设置全局状态，子应用中只能修改已存在的一级属性
+
+> 注：`setGlobalState` 子应用仅能对全局 state 已存在的一级属性做修改，不能对 state 新增或删除属性。`onGlobalStateChange` 监听数据变化同样只针对于 state 已存在的一级属性。
+
+这样设计的目的是想把全局 state 的掌控权交给基座主应用，避免子应用乱操作。
+
+如果以上数据的通信不够用，也可以使用 `window.addEventListener` 直接进行事件通信。
+
+### 路由的原理
+
+qiankun 提供单实例（单个子应用）和多实例（多个子应用同时显示）模式。这里我们只讨论单实例模式，多实例模式目前还处于实验性阶段，多实例路由目前无法使用。
+
+单实例模式下，qiankun 支持子应用使用 hash 和 history 两种路由模式，如果使用 history 需要设置 base。
+
+qiankun 在 registerMicroApps 中获取应用激活规则和入口地址，在规则触发时就会加载该子应用，子应用加载完成后，应用内路由的权利就完全交给子应用了。
+
+如果子应用资源使用的相对路径加载，那么子应用需要在被加载的第一时间指定 `webpack_public_path` 然后再初始化。代码如下：
+
+```js
+if (window.__POWERED_BY_QIANKUN__) {
+  __webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__;
+}
+```
+
+这一步，qiankun 将子应用在基座中配置的入口地址传递给子应用，子应用指定 `webpack_public_path` 后即可正确加载页面资源。
 
 ## 项目实践
 
@@ -299,8 +413,11 @@ qiankun 要求 webpack 子项目输出 library umd 包
 
 参考：
 
-- 推荐 [qiankun 原理](https://www.modb.pro/db/615126)
+- 推荐 [qiankun 原理](https://juejin.cn/post/7202246519080304697)
 - [微前端架构详解 - 乾坤](http://blog.jcr.pub/2021/04/28/the-architecture-of-micro-frontends-qiankun/)
-- [微前端框架 之 single-spa 从入门到精通](https://www.jianshu.com/p/abbbc7042f72)
+- [微前端框架 之 single-spa 从入门到精通](https://juejin.cn/post/6862661545592111111)
   - https://github.com/liyongning/micro-frontend
   - 思维导图 https://www.processon.com/view/link/5f3b53d57d9c0806d41e1a72#map
+- [什么是微前端？](https://zhuanlan.zhihu.com/p/458979302)
+  - 基于 vite + systemjs 实现, 核心不足 100 行代码
+  - https://github.com/MinJieLiu/micro-app
