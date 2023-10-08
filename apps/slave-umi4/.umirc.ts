@@ -6,8 +6,8 @@ export default defineConfig({
     slave: {},
   },
   history: {
-    // type: 'browser',
-    type: 'hash',
+    type: 'browser',
+    // type: 'hash',
   },
   // base: '/slave-umi4/',
   hash: true,

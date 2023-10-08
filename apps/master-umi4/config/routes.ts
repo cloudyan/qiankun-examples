@@ -56,11 +56,11 @@ export default [
       // },
 
       // 子应用自适配路由
-      {
-        path: '/*',
-        layout: false,
-        component: './app',
-      },
+      // {
+      //   path: '/*',
+      //   layout: false,
+      //   component: './app',
+      // },
 
       // {
       //   name: 'Webpack',
@@ -159,7 +159,10 @@ export default [
       //     },
       //   ],
       // },
-
+      {
+        path: '/*',
+        component: './Exception404',
+      },
     ]
   },
   {
