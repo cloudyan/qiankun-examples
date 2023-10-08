@@ -599,8 +599,35 @@ export const mount = async () => render();
 
 使用了 umi 提供的 history 方法进行跳转，umi4 有效，umi3 存在问题
 
-umi3 跳转当前子应用的链接时，仅仅更新了路由，但无对应路由的页面渲染。
+umi3 跳转当前子应用的链接时，仅仅更新了路由，但无对应路由的页面渲染(需要 hashchange 触发才会渲染页面)。
 
+解决方案
+
+可以先试用 pushState 更新 pathname（避免触发刷新）， 然后使用 location.href 更新为完整链接（触发 hashchange）。
+
+参考：[](../apps/master-umi4/src/layouts/index.tsx)
+
+```js
+function jumpUrl(path) {
+  // 可统一为 umi3 形式跳转
+  const obj = parseUrl(path);
+  history.pushState({}, '', obj.pathname)
+  if (obj.hash) {
+    location.href = obj.url;
+  }
+  // if (path.startsWith('/slave-umi3/')) {
+  //   const obj = parseUrl(path);
+  //   history.pushState({}, '', obj.pathname)
+  //   if (obj.hash) {
+  //     location.href = obj.url;
+  //   }
+  // } else {
+  //   history.pushState({}, '', path)
+  // }
+}
+```
+
+疑问，统一使用 history 路由，是否更方便？
 
 ## 扩展阅读
 

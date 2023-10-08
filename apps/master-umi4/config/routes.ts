@@ -35,17 +35,7 @@ export default [
       //   path: '/slave-umi4/*',
       //   component: './app',
       // },
-      // {
-      //   path: '/slave-umi3/*',
-      //   component: './app',
-      // },
 
-      // 子应用自适配路由
-      {
-        path: '/*',
-        layout: false,
-        component: './app',
-      },
 
       // 微应用
       // {
@@ -64,6 +54,13 @@ export default [
       //     autoCaptureError: true,
       //   },
       // },
+
+      // 子应用自适配路由
+      {
+        path: '/*',
+        layout: false,
+        component: './app',
+      },
 
       // {
       //   name: 'Webpack',

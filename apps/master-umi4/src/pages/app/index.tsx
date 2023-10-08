@@ -16,6 +16,6 @@ export default function MicroClient() {
   // const other = <Outlet />
 
   return (<div className="microapp-wrapper">
-    {isMicroClient ? <MicroApp name={microAppName} autoSetLoading /> : other}
+    {isMicroClient ? <MicroApp name={microAppName} base='/' autoSetLoading /> : other}
   </div>);
 };

@@ -20,7 +20,7 @@ let localApps: Apps[] = [
     // credentials: true, // 影响 js 跨域资源加载了
     sandbox: {
       strictStyleIsolation: true,
-      experimentalStyleIsolation: true
+      // experimentalStyleIsolation: true
     },
     props: {
       autoCaptureError: true,
@@ -34,7 +34,7 @@ let localApps: Apps[] = [
     // credentials: true, // umi3 中这个配置影响 js 跨域资源加载了
     sandbox: {
       strictStyleIsolation: true,
-      experimentalStyleIsolation: true
+      // experimentalStyleIsolation: true
     },
     props: {
       autoCaptureError: true,
@@ -62,7 +62,6 @@ const routes = [
     microAppProps: {
       autoCaptureError: true,
     },
-
   },
 ];
 

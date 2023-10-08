@@ -340,9 +340,9 @@ qiankun 要求 webpack 子项目输出 library umd 包
 
 qiankun 提供了 3 种模式来实现不同效果的样式隔离：
 
-1. **动态载入 CSS(默认)** - 代码中的配置为 sandbox = true ，这种模式的做法是直接将子应用的样式（css 列表）全部直接加载到子应用挂载的 DOM 节点内，这样在卸载子应用的时候，移除该 DOM 节点，就可以自动去掉子应用使用的 css。但这种模式可能会导致子应用内的样式影响到基座。（例如子应用内和基座对同一个 id 的 DOM 元素配置了样式）
-2. **Shadow DOM 样式隔离** - 代码中的配置为 sandbox.strictStyleIsolation = true，这种模式是使用浏览器原生的 Shadow DOM(mode = open) 实现，从而达到 Shadow Root 下的 css 无法影响到外部。参考链接：[Shadow DOM](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_shadow_DOM)
-3. **Scoped CSS 样式隔离** - 代码中的配置为 sandbox.experimentalStyleIsolation = true。这种模式通过为 css 选择器添加 [data-...] 限制，从而实现样式的隔离，这种模式可以做到应用内的样式不会影响到外部。
+1. **动态载入 CSS(默认)** - 代码中的配置为 `sandbox = true`，这种模式的做法是直接将子应用的样式（css 列表）全部直接加载到子应用挂载的 DOM 节点内，这样在卸载子应用的时候，移除该 DOM 节点，就可以自动去掉子应用使用的 css。但这种模式可能会导致子应用内的样式影响到基座。（例如子应用内和基座对同一个 id 的 DOM 元素配置了样式）
+2. **Shadow DOM 样式隔离** - 代码中的配置为 `sandbox.strictStyleIsolation = true`，这种模式是使用浏览器原生的 Shadow DOM(mode = open) 实现，从而达到 Shadow Root 下的 css 无法影响到外部。参考链接：[Shadow DOM](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_shadow_DOM)
+3. **Scoped CSS 样式隔离** - 代码中的配置为 `sandbox.experimentalStyleIsolation = true`。这种模式通过为 css 选择器添加 [data-...] 限制，从而实现样式的隔离，这种模式可以做到应用内的样式不会影响到外部。
 
 ```js
 // Shadow DOM 的开关
