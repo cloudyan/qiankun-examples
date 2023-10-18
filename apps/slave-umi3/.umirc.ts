@@ -49,8 +49,8 @@ export default defineConfig({
   mountElementId: 'micro-app-1',  //  容器ID
   // runtimeHistory: {}, // 开始运行时history功能
   history: {
-    type: 'browser',
-    // type: 'hash',
+    // type: 'browser',
+    type: 'hash',
   },
   // TODO: 这里微应用怎么配置，测试时，这里会干扰 hash 路由
   // 错误 /slave-umi3/#/slave-umi3/page1

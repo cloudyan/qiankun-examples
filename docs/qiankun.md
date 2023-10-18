@@ -365,7 +365,7 @@ js 隔离的核心是在基座和子应用中使用不同的上下文 (global en
 qiankun 在 js 隔离上，同样提供了 3 种方案，分别是：
 
 1. `LegacySandbox` - 传统 js 沙箱，目前已弃用，需要配置 `sandbox.loose = true` 开启。此沙箱使用 Proxy 代理子应用对 window 的操作，将子应用对 window 的操作同步到全局 window 上，造成侵入。但同时会将期间对 window 的新增、删除、修改操作记录到沙箱变量中，在子应用关闭时销毁，再根据记录将 window 还原到初始状态。
-2. `ProxySandbox` - 代理 js 沙箱，非 IE 浏览器默认使用此沙箱。和 `LegacySandbox` 同样基于 Proxy 代理子应用对 window 的操作，和 `LegacySandbox` 不同的是，`ProxySandbox` 会创建一个虚拟的 window 对象提供给子应用使用，哪怕是在运行时，子应用也不会侵入对 window，实现完全的隔离。
+2. `ProxySandbox` - 代理 js 沙箱，非 IE 浏览器默认使用此沙箱。和 `LegacySandbox` 同样基于 Proxy 代理子应用对 window 的操作，和 `LegacySandbox` 不同的是，`ProxySandbox` 会创建一个虚拟的 window 对象提供给子应用使用，哪怕是在运行时，子应用也不会侵入全局 window，实现完全的隔离。
 3. `SnapshotSandbox` - 快照 js 沙箱，IE 浏览器默认使用此沙箱。因为 IE 不支持 Proxy。此沙箱的原理是在子应用启动时，创建基座 window 的快照，存到一个变量中，子应用的 window 操作实质上是对这个变量操作。`SnapshotSandbox` 同样会将子应用运行期间的修改存储至 `modifyPropsMap` 中，以便在子应用创建和销毁时还原。
 
 > 注：样式隔离、JS 隔离都在会子应用 mount 前，bootstrap 时处理。
